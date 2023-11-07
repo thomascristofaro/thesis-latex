@@ -1,0 +1,127 @@
+\documentclass[%
+	corpo=11pt,
+    twoside,
+    stile=classica,
+    oldstyle,
+    tipotesi=custom,
+    greek,
+    evenboxes,
+]{toptesi}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{hyperref}
+\hypersetup{%
+    pdfpagemode={UseOutlines},
+    bookmarksopen,
+    pdfstartview={FitH},
+    colorlinks,
+    linkcolor={blue},
+    citecolor={blue},
+    urlcolor={blue}
+  }
+
+%%%%%%% use PDFLATEX 
+
+\usepackage{lipsum} %to insert random text
+
+\usepackage{geometry} %for the margins
+\newcommand\fillin[1][4cm]{\makebox[#1]{\dotfill}} %for the dotted line in the frontispiace
+
+\usepackage{dcolumn}
+\newcolumntype{d}{D{.}{.}{-1} } %to vetical align numbers in tables, along the decimal dot
+
+\usepackage{amsmath}
+
+\usepackage[numbers]{natbib} % for the bibliography
+\bibliographystyle{plainnat}
+
+%per rimuovere l'indentazione quando vado a capo
+%\usepackage[parfill]{parskip}
+
+%%%%%%% Local definitions
+\newtheorem{osservazione}{Osservazione}% Standard LaTeX
+\newtheorem{observation}{Observation}% Standard LaTeX
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}\errorcontextlines=9
+\english
+
+\input{./title.tex} %the frontispiece
+
+%%%%%%% Dedication
+\ifclassica%
+\begin{dedica}
+    A mio padre
+
+    A mio nonno Pino
+\end{dedica}
+%%%%%%% 
+
+\sommario%summary
+%Here goes the abstrat of your thesis
+In the context of digital transformation, the necessity for agile, efficient, and scalable corporate information systems is paramount, with Enterprise Resource Planning (ERP) systems at the forefront of integrating and optimizing business processes. Confronted with growing complexity and the demand for flexibility, traditional ERP architectures exhibit considerable limitations. This thesis delves into the innovative realms of microservices architecture and serverless technologies, such as Function-as-a-Service (FaaS) and cloud services, proposing them as robust solutions to these challenges. An extensive analysis and a real-world application case study form the core of this research, focusing on the design and development of an ERP software platform tailored for small and medium-sized enterprises (SMEs). This platform not only meets the specific requirements of SMEs but also encapsulates modern concepts of distributed architecture and novel cloud-based programming paradigms. Aiming to optimize cost-effectiveness for end-users, even with a pricing model divergent from existing platforms, the study culminates in the creation of a prototype ERP system. This is achieved by integrating various cloud services and developing a cross-platform client front-end using Flutter, showcasing the viability and advantages of the proposed architectural shift. The thesis also tackles the intricacies of this technological evolution, discussing potential challenges and establishing best practices. Ultimately, it provides practitioners and business decision-makers with comprehensive insights and practical tools, supporting a successful transition to more resilient, agile, and future-ready ERP systems.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ringraziamenti%acknowledgements
+%Acknowledge the people you love and/or work with
+I candidati ringraziano vivamente il Granduca di Toscana per i mezzi messi loro a disposizione, ed il signor Von Braun, assistente del prof.~Albert Einstein, per le informazioni riservate che egli ha gentilmente fornito loro, e per le utili discussioni che hanno permesso ai candidati di evitare di riscoprire l'acqua calda.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tablespagetrue\figurespagetrue%to include the list of tables
+%and the list of figures - yuo can comment these commands
+
+\indici%table of content
+%It automatically generated
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Citation
+%If you feel like a poetic guy!
+%\ifclassica   
+%\begin{citazioni}
+%    \textit{If you cannot understand my\\argument, and declare}\\
+%    it's Greek to me\\
+%    \textit{you are quoting Shakespeare.}
+%    
+%    [\textsc{B. Levin}, Quoting Shakespeare]\vspace{1em}
+%\end{citazioni}
+%\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mainmatter
+
+\input{./Chapters/chapter1.tex}
+\input{./Chapters/chapter2.tex}
+\input{./Chapters/chapter3.tex}
+\input{./Chapters/chapter4.tex}
+\input{./Chapters/chapter5.tex}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliography{references}
+
+
+
+\end{document}
+

@@ -1,0 +1,72 @@
+Per il primo capitolo trovare i riferimenti delle immagini
+
+LINK:
+Cloud
+https://cloud.google.com/learn/what-is-cloud-architecture?hl=en
+https://cloud.google.com/learn/what-is-cloud-computing?hl=en
+
+Microservices/Domain-driven design
+https://microservices.io/articles/applying.html -> guarda la scaletta a destra
+
+Libro: building microservices: designing fine-grained systems
+Building Serverless Microservices in Python
+
+Serverless
+Building Serverless Microservices in Python
+https://aws.amazon.com/it/blogs/compute/managing-backend-requests-and-frontend-notifications-in-serverless-web-apps/
+https://aws.amazon.com/it/serverless/?sc_ichannel=ha&sc_icampaign=acq_awsblogsb&sc_icontent=compute-resources
+
+Event-driven design
+https://microservices.io/patterns/data/event-sourcing.html
+
+Building Event-Driven Microservices: Leveraging Organizational Data at Scale
+
+https://aws.amazon.com/it/blogs/compute/operating-lambda-understanding-event-driven-architecture-part-1/
+https://aws.amazon.com/it/blogs/compute/operating-lambda-design-principles-in-event-driven-architectures-part-2/
+https://aws.amazon.com/it/blogs/compute/operating-lambda-anti-patterns-in-event-driven-architectures-part-3/
+
+Types of database
+Types of Data in ERP Databases
+https://microservices.io/patterns/data/database-per-service.html
+https://aws.amazon.com/it/blogs/compute/understanding-database-options-for-your-serverless-web-applications/
+http://vda-lab.github.io/2019/10/lambda-architecture#sql-vs-nosql
+https://stackoverflow.com/questions/2212230/transactions-in-nosql
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-modeling-nosql-B.html
+https://aws.amazon.com/it/blogs/database/single-table-vs-multi-table-design-in-amazon-dynamodb/
+https://emshea.com/post/part-1-dynamodb-single-table-design
+https://stackoverflow.com/questions/70317250/should-i-close-an-rds-proxy-connection-inside-an-aws-lambda-function
+https://upstash.com/blog/serverless-database-connections
+
+SAGA Pattern
+https://microservices.io/patterns/data/saga.html
+
+Technologies
+Amazon AWS Services
+\subsubsection{AWS API Gateway}
+\subsubsection{AWS Lambda}
+\subsubsection{AWS DynamoDB}
+\subsubsection{AWS RDS?}
+GO Language
+https://medium.com/hackernoon/aws-lambda-go-vs-node-js-performance-benchmark-1c8898341982
+https://acloudguru.com/blog/engineering/does-coding-language-memory-or-package-size-affect-cold-starts-of-aws-lambda
+https://filia-aleks.medium.com/aws-lambda-battle-2021-performance-comparison-for-all-languages-c1b441005fd1
+https://go.dev/doc/
+https://dev.to/mauriciolinhares/gof-design-patterns-that-still-make-sense-in-go-27k5
+https://golangbyexample.com/all-design-patterns-golang/
+https://refactoring.guru/design-patterns/go
+https://www.sentiatechblog.com/make-your-apis-faster-cheaper-and-safer-with-rust-and-go
+
+GO CDK
+https://gocloud.dev/
+
+GORM
+https://gorm.io/docs/
+
+Serverless framework
+https://www.serverless.com/framework/docs
+
+Flutter
+-----------------------------------------
+Client Application
+https://medium.com/bancolombia-tech/building-a-design-system-using-atomic-design-methodology-in-flutter-327142bf30c2
+https://medium.flutterdevs.com/flutter-rendering-widgets-using-json-data-43d8db10f735

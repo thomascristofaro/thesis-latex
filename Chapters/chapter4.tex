@@ -1,0 +1,137 @@
+\chapter{Implementation}
+\section{Requirements}
+Before starting development, requirements are established to define the properties of the product. It's important that these requirements are thorough and coherent, covering all necessary features without conflicts or inconsistencies. However, creating these documents can be challenging and errors may occur, such as incomplete or ambiguous feature descriptions, redundancy, or important details being omitted. To address these challenges, software engineering techniques have been developed to formalize the requirements and minimize the occurrence of errors.\\
+% metti la reference e aumentare l'interlinea e rientro
+In particular, ISO9126/25010 is an international standard that provide a framework for evaluating the quality of software products. The quality characteristics in the standard are: functionality, reliability, usability, efficiency, maintainability, ''security, compatibility'' and portability.
+ISO9126/25010 is widely used in software engineering and quality assurance to guide the development and evaluation of software products. %It provides a standardized way to evaluate and communicate the quality of software, which can help organizations to make better decisions about software acquisition, development, and maintenance.
+Using this standard can help to identify the actors involved and the characteristics of functional and non-functional requirements.
+
+\subsection{Stakeholders}
+A stakeholder refers to any role, person, group, or organization that has an interest in a software project or system being developed. This could include end-users, customers, investors, project managers, developers and other individuals or groups involved in the development, deployment, and maintenance of the software.
+Identifying all relevant stakeholders is important for considering diverse perspectives and generating relevant requirements for the system. As shown in Table x, numerous stakeholders play a role in the process.
+% da inserire tabella
+% End-users: These are the people who will use the ERP system in their day-to-day work. They may include employees from various departments within the organization.
+% Customers: These are the organizations or businesses that are purchasing the ERP system. They have a vested interest in ensuring the system meets their needs and requirements.
+% IT staff: These are the individuals responsible for installing, configuring, and maintaining the ERP system.
+% Project managers: These are the individuals responsible for overseeing the ERP project and ensuring that it is completed on time and within budget.
+% Business analysts: These are the individuals responsible for gathering and analyzing business requirements and translating them into technical specifications.
+% Developers: These are the individuals responsible for creating the software code that makes up the ERP system.
+% Testers: These are the individuals responsible for ensuring that the ERP system works correctly and meets all of the required specifications.
+% Vendors: These are the organizations that provide the ERP software and related services, such as installation, configuration, and support.
+% Regulators: In some cases, there may be regulatory bodies or government agencies that have an interest in the ERP system, such as in industries with strict compliance requirements.
+
+\subsection{Functional and Non-functional}
+Functional requirements and non-functional requirements are two types of requirements that are used to specify what a system or software application should do and how it should perform.
+They are important for the successful development and implementation of a system or software application. The functional requirements ensure that the software application meets the needs of its users, while the non-functional requirements ensure that the system is reliable, efficient, and secure.
+
+\subsubsection{Functional requirements}
+Functional requirements describe what the system should do in terms of its functionalities, features, and capabilities. They define the specific tasks that the software application should be able to perform to meet the needs of its users. For distinguish one requirement from another it is important to assign for each functionality an ID, in order to easy identify it and trace throughout the life cycle of the project (Table x).
+
+% da inserire tabella
+% Purchasing management: The system must be able to manage the entire purchasing process, from purchase requests to inventory management to actual purchase of products or services.
+% Production management: The system must be able to manage the production process, including planning, scheduling, and control of production, as well as management of work orders.
+% Logistics management: The system must be able to manage logistics, including storage, transportation, delivery, and tracking of goods.
+% Sales management: The system must be able to manage the entire sales process, from quotes to inventory management to billing and post-sales support.
+% Human resources management: The system must be able to manage HR processes, such as personnel management, training, performance, and human resources planning.
+% Financial management: The system must be able to manage financial processes, including accounting, billing, budget management, bank activity management, and tax management.
+% Project management: The system must be able to manage projects, from planning activities to resource management, to execution and control phases.
+
+\subsubsection{Non-functional requirements}
+Non-functional requirements describe how the system should perform in terms of its performance, reliability, security, usability, and other aspects that are not directly related to the specific functionalities to be implemented. They refer to operating methods and constraints, such as response times, supported platforms, choice of languages, required resources, tools and various implementation techniques. They must be measurable and may be more critical than functional requirements.
+They are identified with a unique code and it is also necessary to specify their type associated to the ISO properties and which functional requirements they refer to (Table x).
+
+% quello che sta scritto qui non c'entra nulla vedi sotto
+% \begin{table}
+%     \centering
+%     \begin{tabular}{p{2cm} | p{2.5cm} | p{4.5cm} | p{2.5cm}}
+%         \hline\hline
+%         ID         & Type & Description                                        & Refers to \\
+%         \hline
+%         Pages      & 3K   & 1 Page = 2 function request 1 to read - 1 to write & 6K        \\
+%         Report     & 150  & 1 Report = 1 function req.                         & 150       \\
+%         WebService & 76K  & 1 WS = 1 function req.                             & 76K       \\
+%         \hline \hline
+%     \end{tabular}
+%     \caption{Example of ERP usage}\label{table_ERP_vendor}
+% \end{table}
+% da inserire tabella
+% Scalability: The system should be able to handle a high volume of transactions and data, as it must be able to support all of the organization's functionalities.
+% Reliability: The system should be highly reliable, as it must always be available for user access and use.
+% Security: The system should be highly secure, as it manages sensitive business data, financial information, and personnel information.
+% Usability: The system should be easy to use and intuitive for users, as ERP system users may have varying levels of computer proficiency.
+% Performance: The system should be able to process and provide information in real-time, as business data must always be up-to-date.
+% Maintainability: The system should be easily maintainable and modifiable, as business needs may change and require the addition of new functionalities.
+% Interoperability: The system should be compatible with other software systems and technologies used by the organization, as the ERP system must be integrated with other business applications.
+
+
+\section{Server application}
+\subsection{Final Architecture}
+% immagine architettura finale con l'integrazione dei servizi Amazon
+\subsection{Database}
+% un database SQL per ogni microservizio
+% quali sono le tabelle
+
+\section{Use Case}
+\subsection{REST APIs}
+\subsubsection{Security}
+\subsubsection{User APIs}
+\subsubsection{Customer APIs}
+\subsubsection{Order APIs}
+\subsubsection{Warehouse APIs}
+\subsection{Async task}
+\subsubsection{Posting order}
+% Posting shipment
+% Posting invoice
+
+\section{Client Application}
+\subsection{User Interface}
+
+% da spostare nel capitolo serverless oppure proprio nell'implementazione
+\subsubsection{Function as a Service - FaaS}
+Since 2014 a new term was introduced in the cloud environment: \textbf{Serverless}. It refers to a cloud computing model where the cloud provider manages the infrastructure, including the server, allowing developers to focus on writing and deploying their code without having to worry about managing the underlying infrastructure. \textbf{Function as a Service (FaaS)} is a specific type of serverless technology that allows developers to deploy individual functions or pieces of code without having to worry about the underlying infrastructure.\\
+The cost of using a FaaS model can be lower than using a Software as a Service model, as you only pay for the specific code you run, rather than paying a monthly or yearly fee for access to the entire software. Additionally, with a FaaS model, you only pay for the resources that your code actually uses, like computing time and data storage, rather than paying for the entire server or infrastructure even when your code is not running. This can result in significant cost savings; it tends to be more cost-effective than SaaS for short-lived, event-driven workloads as the customer only pays for the specific computation and resources used by each function.\\
+The cost of a function as a service environment can be estimated by analyzing the usage of an ERP system. For example, if we take a small company with 7 users and analyze their usage of Microsoft Business Central, we can calculate the total number of monthly requests for functions.
+\newpage
+\begin{table}
+    \centering
+    \begin{tabular}{p{2cm} | p{2.5cm} | p{4.5cm} | p{2.5cm}}
+        \hline\hline
+        Object     & Usage per day & Conversion                                         & Request/Day \\
+        \hline
+        Pages      & 3K            & 1 Page = 2 function request 1 to read - 1 to write & 6K          \\
+        Report     & 150           & 1 Report = 1 function req.                         & 150         \\
+        WebService & 76K           & 1 WS = 1 function req.                             & 76K         \\
+        \hline \hline
+    \end{tabular}
+    \caption{Example of ERP usage}
+    \label{tab:table_ERP_usage}
+\end{table}
+Considering a month with 26 working days we have:
+\begin{equation}
+    (150 + 6000 + 76000) * 26 = 2135900 \cong 2.2M \text{ Request per month}
+\end{equation}
+We will use the FaaS service called Lambda provided by Amazon AWS, prices are calculated based on the number of calls, duration, and memory allocation for the respective function. By definition, Lambda functions must be fast and lightweight, so we will use half a second as the duration of each request and an allocated memory amount of 256 Mb, we will calculate the price not considering the free plan offered by Amazon:
+\begin{equation}
+    \text{Total processing time: } 2200000 * 0.5 sec = 1100000.00 sec
+\end{equation}
+\begin{equation}
+    256 \text{ MB} * 0.0009765625 = 0.25 \text{ GB}
+\end{equation}
+\begin{equation}
+    \text{Total processing: } 0.25 \text{ GB} * 1100000.00 sec = 275000 \text{ GB/s}
+\end{equation}
+\begin{equation}
+    \text{Total processing cost: } 275000 \text{ GB/s} * 0.0000195172 \text{ USD} = 5.3672 \text{ USD}
+\end{equation}
+\begin{equation}
+    \text{Request cost: } 2200000 * 0.00000023 \text{ USD} = 0.51 \text{ USD}
+\end{equation}
+\begin{equation}
+    \text{Total monthly lambda cost: }5.3672 \text{ USD} + 0.51 \text{ USD} = 5.88 \text{ USD}
+\end{equation}
+To this we must also add the cost of the API Gateway for routing requests:
+\begin{equation}
+    2200000 * 0.00000117 \text{ USD} = 2.57 \text{ USD}
+\end{equation}
+Finally, the total cost of the enviroment is 8,45 USD per month, that show the flexibility and cost-effectiveness of the system. This example gives us the reason why the serverless has rapidly become a popular choice for many organizations, even if the concept is still relatively new.
+%so the purpose of this thesis is to try to create a prototype of ERP using this kind of technology.
