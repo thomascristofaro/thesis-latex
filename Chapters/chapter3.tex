@@ -702,10 +702,148 @@ transactions that may succeed or fail separately, lacking atomicity for the enti
     \label{fig:3_transaction}
 \end{figure}
 
-\subsubsection{Distributed transaction}
+\subsubsection{Distributed transaction - Two-Phase Commit}
+The Two-Phase Commit (2PC) algorithm facilitates transactional updates across distributed systems,
+ensuring atomic transaction commits across multiple nodes. Essentially, it mandates that all
+involved nodes must either commit or abort together, maintaining the principle of atomic
+transactions\textsuperscript{\cite{2pc_1}}. Unfortunately, 2PC is often viewed as impractical for
+microservice architectures\textsuperscript{\cite{microservices_book}}, thus this section explores the
+reasons behind this perspective, analyzing the limitations and challenges of applying 2PC in such
+contexts.
 
-\subsubsection{SAGAS Pattern}
-% sagas (something I’ll detail at length in Chapter 6)
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.55]{Pictures/3_2pc.png}
+    \caption{Example of the 2PC protocol process\textsuperscript{\cite{2pc_2}}.}
+    \label{fig:3_2pc}
+\end{figure}
+
+In the figure \ref{fig:3_2pc} we can see an example of the 2PC protocol process. The protocol is divided
+into two phases: the prepare phase and the commit phase. Initially, in the prepare phase,
+microservices are prompted to ready themselves for a potential atomic data change. Following this,
+the commit phase involves directing these microservices to execute the actual changes. Central to
+this process is a global coordinator, responsible for overseeing the transaction's lifecycle and
+engaging with microservices during both the prepare and commit phases. This coordinator is pivotal
+in determining whether the nodes can commit the proposed transaction and in issuing the final
+command to commit or abort\textsuperscript{\cite{2pc_1}}\textsuperscript{\cite{2pc_2}}.
+\newline\newline
+The major benefit of 2PC protocol is that it is a robust mechanism for ensuring consistency across
+distributed systems. Its dual phases — prepare and commit — assure that transactions are atomic,
+making all microservices commit successfully or none at all, preventing partial updates.
+Additionally, 2PC enforces read-write isolation, ensuring that any modifications remain invisible
+until the coordinating node finalizes the commit, maintaining transaction integrity throughout the
+process\textsuperscript{\cite{2pc_2}}.
+\newline\newline
+Although 2PC ensures atomicity, its limitations make it less suitable for numerous
+microservice-based systems\textsuperscript{\cite{2pc_2}}. The main issue of 2pc protocol
+are\textsuperscript{\cite{2pc_3}}:
+
+\begin{itemize}
+    \item \textbf{Blocking}: The protocol locks objects until a transaction is complete, causing
+          potential delays and deadlock.
+    \item \textbf{Latency}: Waiting for all participant responses before proceeding adds to the
+          transaction time.
+    \item \textbf{Coordinator Risk}: The Transaction Coordinator is a critical point that can fail,
+          blocking all transactions.
+    \item \textbf{Participant Performance}: The entire transaction's speed is tied to the slowest
+          participant, with failures necessitating full rollbacks.
+\end{itemize}
+
+\subsubsection{Saga distributed transactions pattern}
+As described so far, to avoid coupling between microservices, the database-per-microservice pattern
+is utilized, allowing each service to manage its own data. This method offers several advantages:
+select the most suitable data store type, scale it independently, and maintain isolation from
+failures in other services\textsuperscript{\cite{ms_sagas}}. This pattern has a drawback: it does
+not support ACID transactions across multiple services. To overcome this limitation, the Saga
+pattern can be employed.
+\newline\newline
+Unlike a two-phase commit, the saga pattern is designed to effectively coordinate multiple state
+changes, ensuring data consistency and avoiding resource locks across microservices. It accomplishes
+this by decomposing the process into separate, independently executable activities. The adoption of
+the saga pattern necessitates the explicit modeling of business processes, which can yield
+significant benefits\textsuperscript{\cite{microservices_book}}.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{Pictures/3_saga.png}
+    \caption{From 2pc to Saga pattern\textsuperscript{\cite{io_sagas}}.}
+    \label{fig:3_saga}
+\end{figure}
+
+How showed in figure \ref{fig:3_saga}, the Saga pattern manages transactions across multiple
+services through a sequence of local transactions, each serving as an atomic work effort by a saga
+participant. In this pattern, every local transaction updates the database and publishes a message
+or event to initiate the subsequent local transaction within the saga. If any local transaction
+fails, typically due to a violation of business rules, the saga responds by executing compensating
+transactions to reverse the changes made by earlier local transactions. This approach ensures
+consistent and reliable transaction management in complex, distributed
+systems\textsuperscript{\cite{ms_sagas}}\textsuperscript{\cite{io_sagas}}.
+\newline\newline
+The key benefit of Saga is maintaining data consistency across multiple services without needing
+distributed transactions. However, it introduces complexities: developers must create compensating
+transactions to reverse earlier changes, and debugging becomes challenging, especially as the number
+of services involved increases.
+When a client initiates a saga through a synchronous request (like an HTTP POST), determining the
+saga's outcome is crucial. This can be managed in several ways\textsuperscript{\cite{io_sagas}}:
+
+\begin{itemize}
+    \item \textbf{Immediate Response Post-Completion}: The service responds after the saga
+          completes, ensuring a definitive outcome but possibly causing delays.
+    \item \textbf{Initiation Acknowledgement with Periodic Polling}: The service acknowledges the
+          saga's start, and the client periodically checks for the outcome.
+    \item \textbf{Initiation Acknowledgement with Event Notification}: The service sends an initial
+          response and notifies the client via an event (e.g., websocket) upon saga completion.
+\end{itemize}
+
+There are two prevalent methods for implementing the Saga pattern: choreography and orchestration.
+Each method presents unique challenges and requires specific technologies to effectively coordinate
+the workflow.
+
+\subsubsection{Choreography-based saga}
+Choreography in sagas refers to a decentralized method of coordination where participants
+communicate through the exchange of events, without relying on a central control point. In this
+approach, each local transaction emits domain events that activate local transactions in
+other services\textsuperscript{\cite{ms_sagas}}.
+
+\newpage
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.55]{Pictures/3_choreography.png}
+    \caption{Choreography-based saga\textsuperscript{\cite{ms_sagas}}.}
+    \label{fig:3_choreography}
+\end{figure}
+
+The workflow is well-suited for simpler processes with fewer participants, as it does not
+necessitate complex coordination logic or the implementation and maintenance of an additional
+service. This decentralization also prevents the emergence of a single point of failure. However,
+the approach has its limitations; as the workflow grows, it becomes increasingly challenging to
+track the interactions and commands between saga participants, potentially leading to cyclic
+dependencies. Integration testing can be complicated, requiring all services to be
+active to effectively simulate a transaction, posing a considerable challenge in practical
+applications\textsuperscript{\cite{ms_sagas}}.
+
+\subsubsection{Orchestration-based saga}
+Orchestration in sagas involves a central controller directing saga participants on which local
+transactions to carry out. The orchestrator manages all transactions, instructing participants on
+specific operations in response to events. It is responsible for executing saga requests,
+maintaining and interpreting the state of each task, and managing failure recovery through
+compensating transactions\textsuperscript{\cite{ms_sagas}}.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.55]{Pictures/3_orchestrator.png}
+    \caption{Orchestration-based saga\textsuperscript{\cite{ms_sagas}}.}
+    \label{fig:3_orchestration}
+\end{figure}
+
+This pattern is advantageous for complex workflows with numerous participants or when incorporating
+new participants over time, as it allows complete control over each participant and their
+activities. This approach eliminates cyclical dependencies by having the orchestrator solely depend
+on the saga participants and simplifies business logic by clearly separating concerns. Anyway, it
+introduces additional design complexities by requiring the implementation of specific coordination
+logic, and the orchestrator itself becomes a potential point of failure, managing the entire
+workflow and thus presenting a risk to the system's stability\textsuperscript{\cite{ms_sagas}}.
 
 \section{Serverless}
 \subsection{Event-driven design}
