@@ -954,37 +954,420 @@ logic, and the orchestrator itself becomes a potential point of failure, managin
 workflow and thus presenting a risk to the system's stability\textsuperscript{\cite{ms_sagas}}.
 
 \section{Serverless}
-% Introduction to Serverless Computing
+\subsection{Introduction}
+The advent of serverless computing marks a significant shift in the way applications are developed
+and managed, especially within the domain of microservices. As the architecture of an application
+expands, operational responsibilities grow correspondingly. Public cloud providers have risen to
+this challenge by offering an extensive suite of managed services, ranging from managed database
+instances and Kubernetes clusters to message brokers and distributed file systems. Leveraging these
+managed services translates to offloading substantial operational workload to third-party experts,
+who are often more equipped to manage these complex tasks\textsuperscript{\cite{microservices_book}}.
+\newline\newline
+Within the serverless offerings, services that facilitate Event-Driven Architecture hold a
+place of prominence. Serverless platforms inherently support EDA by abstracting away the
+infrastructure, allowing developers to concentrate on code and event flows rather than server
+management. Products such as message brokers, storage solutions, and databases are designed to
+seamlessly integrate with event-driven models, providing a responsive and efficient means to trigger
+and scale microservices based on real-time events\textsuperscript{\cite{event_book}}.
+\newline\newline
+Function as a Service (FaaS), a cornerstone of serverless offerings, perfectly complements EDA by
+providing a mechanism to deploy code that automatically responds to events without the need for
+explicit server provisioning. Developers simply deploy their functions, which are then executed in
+response to events, scaling automatically with the volume of requests. This serverless, event-driven
+model significantly reduces the complexity of scaling and managing infrastructure, allowing
+developers to focus on building responsive, efficient, and modern cloud-native
+applications.\textsuperscript{\cite{microservices_book}}.
 
-% microservices_book
-% Public Cloud and Serverless 
-% Public cloud providers, or more specifically the main three
-% providers—Google Cloud, Microsoft Azure, and Amazon Web Services (AWS)—offer a huge array of managed
-% services and deployment options for managing your application. As your microservice architecture
-% grows, more and more work will be pushed into the operational space. Public cloud providers offer a
-% host of managed services, from managed database instances or Kubernetes clusters to message brokers
-% or distributed filesystems. By making use of these managed services, you are offloading a large
-% amount of this work to a third party that is arguably better able to deal with these tasks.
+\subsubsection{Example of Serverless}
 
-% Of particular interest among the public cloud offerings are the products that sit under the banner
-% of serverless. These products hide the underlying machines, allowing you to work at a higher level
-% of abstraction. Examples of serverless products include message brokers, storage solutions, and
-% databases. Function as a Service (FaaS) platforms are of special interest because they provide a
-% nice abstraction around the deployment of code. Rather than worrying about how many servers you need
-% to run your service, you just deploy your code and let the underlying platform handle spinning up
-% instances of your code on demand. We’ll look at serverless in more detail in Chapter 8.
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{Pictures/3_serverless_example.jpg}
+    \caption{Example of Serverless Architecture.}
+    \label{fig:3_serverless_example}
+\end{figure}
 
-% Esempio utilizzo
+The image \ref{fig:3_serverless_example} illustrates the architecture of a simple "to-do list" web application built using
+serverless technology on the Amazon public cloud. This event-driven application is designed to allow
+registered users to manage their tasks efficiently. Users interact with the application to create,
+update, view, and delete to-do items. The architecture integrates several Amazon Web Services to
+achieve this functionality. Each component of the architecture is orchestrated to respond to
+specific events triggered by user actions, such as adding a new to-do item or marking one as
+complete, making the entire application responsive and scalable without the need to manage server
+infrastructure\textsuperscript{\cite{serverless_1}}.
 
-% Benefits and Drawbacks
+\subsection{Benefits}
+
+\subsubsection{Cost-effective}
+Serverless computing provides a cost-efficient model by charging only for the backend services when
+code is executed, following an event-based model. This stands in contrast to traditional hosting
+models, where costs are incurred for dedicated servers regardless of whether they are in active use.
+By eliminating the need to provision, manage, and maintain physical servers, serverless computing
+allows for significant cost savings. It is particularly economical for applications that do not run
+continuously, as you pay solely for the resources utilized during the execution time, without the
+overhead of server maintenance and
+upgrades\textsuperscript{\cite{serverless_2}}\textsuperscript{\cite{serverless_3}}. However, it is
+worth noting that for applications with constant runtime, serverless computing may not always be the
+most cost-effective option\textsuperscript{\cite{serverless_4}}.
+
+\subsubsection{Scalability}
+Seamless scalability is a hallmark of serverless computing, allowing applications to adapt quickly
+to fluctuating demands without the need for server management. It operates much like a bus system
+that adjusts its capacity according to the number of passengers; serverless infrastructure
+automatically scales up or down as user demand changes. This model ensures that server capacity is
+precisely aligned with the necessary demand, providing ample resources when the number of user
+requests increases without being constrained by the limitations of server storage and performance
+capabilities\textsuperscript{\cite{serverless_2}}. This adaptability is considered one of the
+primary benefits of serverless computing, enabling businesses, especially small and medium
+enterprises (SMEs), to handle traffic surges efficiently and cost-effectively, ensuring service
+continuity and performance without the disruptions commonly associated with traditional hosting
+models\textsuperscript{\cite{serverless_3}}.
+
+\subsubsection{Reliability}
+Serverless computing inherently enhances application reliability due to multiple layers of built-in
+redundancy. Since serverless applications are not tethered to a single origin server, they have the
+flexibility to execute code from various locations, optimizing the function execution closer to the
+end-user\textsuperscript{\cite{serverless_2}}\textsuperscript{\cite{serverless_3}}. This distributed
+nature not only helps in reducing latency, thereby improving performance, but also contributes to
+high availability. The risk of service outages or failures is significantly reduced, ensuring that
+end-users have consistent and reliable access to the application
+functions\textsuperscript{\cite{serverless_4}}.
+
+\subsubsection{Increased productivity}
+Serverless computing streamlines the development process, making it much faster and more efficient
+to build and deploy applications. Developers are freed from the time-consuming tasks of server setup
+and infrastructure maintenance, allowing them to concentrate on innovation and creativity without
+being hindered by server constraints. As a result, developers can launch products more swiftly, as
+there is no need for traditional server-side installations or workflow monitoring. The serverless
+model enables direct code uploads and immediate function execution on the cloud provider’s
+infrastructure. This agility extends to application updates and patches, which can be implemented
+incrementally, targeting individual functions rather than disrupting the entire service. This
+approach not only enhances development velocity but also reduces the resources allocated to DevOps,
+leading to cost savings and allowing developers to focus purely on coding and product
+improvement\textsuperscript{\cite{serverless_2}}\textsuperscript{\cite{serverless_3}}.
+
+\subsubsection{Resource Utilisation}
+The efficiency of serverless computing in terms of resource utilization marks a substantial
+advancement towards greener technology practices. By engaging resources solely during code
+execution, serverless platforms significantly minimize waste and avoid the energy costs associated
+with powering idle servers. This responsiveness to real demand underscores serverless computing as
+an eco-friendly choice, particularly appealing to organizations aiming to reduce their environmental
+impact and achieve sustainability goals. Such a model is not only in line with ecological
+considerations but also optimizes operational expenditures, positioning serverless computing as a
+judicious approach for backend operations that are both environmentally and economically
+conscious\textsuperscript{\cite{serverless_5}}.
+
+\subsection{Drawbacks}
+\subsubsection{Performance Issues}
+Serverless architectures can encounter performance hiccups, particularly when reactivating idle
+applications. Known as "cold start" latency, this issue arises when the serverless platform takes
+additional time to provision resources for an application that hasn't been used recently. While
+steps such as reducing code length can mitigate the impact, they may lead to a trade-off where
+developers must manage a larger number of smaller, more manageable functions. Despite these efforts,
+the initial delay in resource setup inherent to cold starts can still lead to slower response times
+when an application is invoked after being dormant\textsuperscript{\cite{serverless_3}}.
+
+\subsubsection{Limited Control}
+In serverless computing, the cloud provider's management of the infrastructure results in developers
+having limited control over the environment and certain application parameters. This lack of direct
+control can hinder customization efforts and may pose issues if specific needs arise that require
+adjustments at the infrastructure level. Additionally, cloud providers may offer limited support for
+certain programming languages and runtime environments, which can restrict the technology stack
+options for development\textsuperscript{\cite{serverless_2}}. Another consideration is the potential
+for vendor lock-in; reliance on a single provider's serverless architecture can create dependencies
+that complicate migrating to a different provider's services\textsuperscript{\cite{serverless_4}}.
+These factors highlight the trade-offs between the convenience of serverless models and the need for
+flexibility in application deployment and management.
+
+\subsubsection{Increased Complexity}
+While developers benefit from the reduced need to manage servers and scalability concerns, they are
+faced with the intricacies of serverless architectures, such as state management, integration with
+other services, and the unique security considerations these environments entail. Moreover, the
+serverless paradigm often requires a different approach to application design, with a focus on
+individual functions and services, which can be a departure from traditional monolithic
+architectures. These elements can sometimes increase the cognitive load on developers and complicate
+the application lifecycle management, especially for those accustomed to more control over the
+server environment\textsuperscript{\cite{serverless_2}}\textsuperscript{\cite{serverless_3}}.
+
+\subsubsection{Testing \& Debugging}
+The abstraction inherent in serverless computing can obscure backend processes, complicating tasks
+such as testing and debugging. Without traditional backend visibility, developers might find it
+difficult to conduct in-depth inspections, detect faults, and identify errors within the cloud
+environment, adopting more comprehensive strategies to anticipate and address potential issues. This
+added complexity in monitoring and diagnosing problems requires a proactive approach to fault
+prediction and management to minimize service disruptions for
+users\textsuperscript{\cite{serverless_3}}. Debugging, in particular, presents a challenge as the
+infrastructure's concealed nature takes away some of the direct troubleshooting tools that
+developers rely on in more conventional setups\textsuperscript{\cite{serverless_4}}.
+
+\subsubsection{Security concerns}
+In serverless computing, the responsibility for security configurations largely rests with the cloud
+provider, which can lead to concerns over limited control and potential security risks if the
+provider's measures are not up to par. Careful evaluation of a provider's security protocols is
+crucial, and applications must be designed with security best practices in mind to mitigate risks.
+Despite the robust security measures typically employed by service providers, some users may still
+be apprehensive about relinquishing direct control over security. Serverless architecture often
+involves sharing resources between different clients on the provider's infrastructure, which
+introduces the need for strong isolation policies to ensure that one client's activities do not
+compromise another's security. Complying with these security considerations requires trust in the
+provider's ability to safeguard the environment while also necessitating that developers stay
+vigilant and informed about the security posture of their serverless
+applications\textsuperscript{\cite{serverless_3}}\textsuperscript{\cite{serverless_4}}.
 
 \subsection{Function-as-a-Service}
-% microservices_book
-% Function as a Service (FaaS) - ha diversi titoletti
-% event_book - chapter 9
+Functions-as-a-Service (FaaS) represents a modern "serverless" approach that has gained widespread
+popularity for its ability to simplify the development and operation of applications. In FaaS,
+functions - pieces of code - are executed in response to specific triggers, running only until their
+task is completed. This model allows for efficient scaling, as the number of function executions
+automatically adjusts based on the load, making it highly effective for event-driven systems where
+workload can be unpredictable.\newline\newline
+FaaS operates on a consumer/producer basis, where functions are transient, ceasing to exist after a
+set duration along with their connections and state. This design necessitates careful planning in
+function development but offers significant benefits. The cost efficiency is notable, as you incur
+charges only for the time your code is running. Additionally, the FaaS platform manages the
+operational complexities, such as automatically handling the spinning up and down of functions and
+ensuring high availability and robustness with minimal effort from the developer.\newline\newline
+The integration of FaaS in application development reduces operational overhead substantially,
+making it an ideal choice for implementing simple to moderately complex solutions within
+event-driven architectures. This approach allows developers to focus more on building functionality
+without the burden of managing infrastructure, leading to more agile and responsive application
+development\textsuperscript{\cite{event_book}}.
 
-\subsection{Costs}
-% Be_Wary_of_the_Economics_of_Serverless_Cloud_Computing
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{Pictures/3_faas.png}
+    \caption{Evolution of architectures.}% https://www.cbinsights.com/research/serverless-cloud-computing/
+    \label{fig:3_faas}
+\end{figure}
+
+\subsubsection{Cold Start and Warm Starts}
+A "cold start" refers to the initial phase of a function in a FaaS (Function-as-a-Service)
+environment when it is first activated or after a period of dormancy. During this phase, the system
+initiates a container, loads the code, establishes connections with the event broker, and sets up
+other necessary external resource connections. Once these preparatory steps are complete, the
+function transitions to a "warm state," primed to process events. In this state, the function
+actively processes events until it either completes its task or reaches a timeout, at which point it
+enters a suspended or hibernation mode.\newline\newline
+FaaS frameworks typically strive to optimize resource usage by reactivating these suspended
+functions for subsequent tasks. In scenarios where there is a consistent flow of events, a function
+may cycle between active processing and brief termination due to timeout. However, if the
+connections to the event broker and state stores remain active during these short periods of
+inactivity, the system can quickly resume processing with the reactivated function instance. This
+reuse of function instances enhances efficiency, reducing the overhead and latency associated with
+initializing a function from a cold start\textsuperscript{\cite{event_book}}.
+
+\subsubsection{Maintaining State}
+FaaS (Function-as-a-Service) platforms are designed for stateless operations, primarily due to the
+ephemeral nature of functions. Since these functions have a limited lifespan, any FaaS-based
+solution that requires statefulness typically relies on external stateful services. This design
+choice aligns with the objective of FaaS providers to offer rapid, highly scalable processing
+resources that are not constrained by the location of data. Local state dependence, where a function
+needs to access state from previous executions, restricts execution to specific nodes where this
+state is available. This limitation hinders the inherent flexibility of FaaS.\newline\newline
+To maintain scalability and flexibility, FaaS providers often implement a policy that prohibits
+local state within functions, directing that all stateful data be stored externally. Functions then
+interact with these external state stores in the same manner as any other client: by establishing a
+connection and utilizing the appropriate API. Consequently, it's essential for functions to
+explicitly persist and retrieve any state as part of their operational process. This approach
+ensures that while the functions themselves remain stateless, stateful interactions are still
+possible through external mechanisms\textsuperscript{\cite{event_book}}.
+
+\subsubsection{Integrated with Event-Driven Architectures}
+This technology is inherently stateless and is activated by specific triggers or events, making it
+an ideal match for event-driven architectures. In an event-driven architecture, components react to
+events such as user actions, sensor outputs, or messages from other systems. FaaS fits seamlessly
+into this paradigm because it is designed to respond to events automatically. When an event occurs,
+it triggers a specific function, which executes and then terminates, ensuring a minimal use of
+resources. This model is highly efficient and scalable, as it allows for on-demand, ephemeral
+computing resources that are only used when needed. The stateless nature of FaaS ensures that each
+function execution is isolated and independent, enhancing both scalability and reliability. This
+integration of FaaS with event-driven architecture represents a powerful and flexible approach to
+building and operating modern, responsive, and efficient applications.
+
+\subsubsection{Mapping to microservices}
+There are two primary modes of mapping microservices using Function-as-a-Service technology:
+"Function per Microservice" and "Function per Aggregate".
+\newline\newline
+In \textbf{Function per microservice} method, a single instance of a microservice is deployed as a
+singular function, as illustrated in figure \ref{fig:3_single_function}. This strategy maintains the
+integrity of the microservice instance as the fundamental unit of deployment in the FaaS platform.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{Pictures/3_single_function.png}
+    \caption{Example of Function per microservice.}
+    \label{fig:3_single_function}
+\end{figure}
+
+In this setup, when the function is invoked, the FaaS platform activates a singular entry point
+within the deployed function. This necessitates a mechanism within the function for routing the
+invocation to various functionalities that the microservice comprises. For instance, if you have a
+microservice like the Expenses service, designed as a REST-based system, it could expose different
+endpoints such as /receipt, /claim, or /report. In a single function deployment model, requests to
+any of these endpoints are funneled through the same entry point. Consequently, there must be an
+internal dispatch system within the function that discerns the path of the incoming request and
+directs it to the correct segment of the microservice for processing. This design ensures
+streamlined handling of various functionalities within a microservice through a unified FaaS-based
+interface\textsuperscript{\cite{microservices_book}}.
+\newline
+\newline
+The \textbf{Function per aggregate} approach adopts a detailed perspective, dividing a single
+microservice into several functions, where each function is responsible for a distinct part or
+"aggregate" of the microservice's overall role. In this context, an aggregate refers to a group of
+domain objects treated as a cohesive unit for the purposes of data manipulation. This approach
+aligns well with domain-driven design, where aggregates are typically defined as collections of
+objects managed together and often represent real-world entities.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{Pictures/3_multiple_functions.png}
+    \caption{Example of Function per aggregate.}
+    \label{fig:3_multiple_functions}
+\end{figure}
+
+If a microservice manages multiple aggregates, a practical solution is to dedicate a function to
+each aggregate, as depicted in figure \ref{fig:3_multiple_functions}. This strategy ensures that all
+the logic pertaining to an individual aggregate is encapsulated within a single function. Such an
+arrangement simplifies the management and ensures consistent implementation of the aggregate's
+life-cycle\textsuperscript{\cite{microservices_book}}. \newline\newline
+Adopting this model alters the traditional concept of a microservice instance from a single
+deployment unit to a more conceptual framework composed of various functions. These functions,
+representing different parts of the microservice, can theoretically be deployed independently. This
+not only provides flexibility in deployment but also allows for more granular scaling and
+maintenance of the service.
+
+\subsection{Market Overview}
+The serverless computing market is poised for rapid expansion, with projections estimating a
+compound annual growth rate (CAGR) of 22.2\% from 2024 to 2032, fueled by an escalating demand for
+cost-effective computing. Organizations are keen to diminish capital expenditures on IT
+infrastructure, and serverless computing meets this need by delivering backend services that only
+incur costs when actively used. This pricing model significantly enhances organizational
+cost-efficiency and augments scalability, reliability, and the pace of product development to
+market\textsuperscript{\cite{serverless_6}}. \newline\newline
+Contributing to this growth is a concerted move towards sustainable IT practices, with companies
+embracing serverless computing to cut down on IT hardware dependency and improve energy efficiency,
+thereby supporting their environmental, social, and governance (ESG) objectives. The adaptability of
+serverless computing, compatible with numerous programming environments, is finding traction across
+vital sectors like manufacturing, IT, and banking. This is further amplified by the boom in web and
+mobile application development, thanks to broader mobile and internet accessibility, where
+serverless computing's efficient resource utilization and speedy deployment significantly lower
+operational and maintenance costs. Collectively, these factors are making serverless computing a
+compelling strategy for organizations seeking to bolster user experiences and maintain a competitive
+edge, indicating a strong and dynamic future for the serverless computing
+market\textsuperscript{\cite{serverless_6}}.
+
+\subsubsection{Trends and Success Rates}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.2]{Pictures/3_serverless_adoption.png}
+    \caption{Serverless adoption among survey respondents’ organizations.}
+    \label{fig:3_serverless_adoption}
+\end{figure}
+
+The O'Reilly serverless survey\textsuperscript{\cite{serverless_7}}, with over 1,500 participants,
+showcased a high level of engagement with serverless architecture, reflecting its growing
+significance in the tech community. The figure \ref{fig:3_serverless_adoption} shows around 40\% of
+respondents' organizations had embraced serverless, drawn by the promise of reduced operational
+costs and the benefit of automatic scaling. These adopters spanned across various industries and
+company sizes, indicating that serverless solutions are not limited to any specific sector or
+business scale. The survey also revealed that while a substantial 60\% of organizations had not yet
+adopted serverless, the reported benefits and the growing success rates among experienced users
+could serve as a catalyst for wider adoption. The benefits driving this interest include not only
+cost efficiency and scalability but also the agility to adapt to new business requirements rapidly.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.2]{Pictures/3_serverless_adoption_rating.png}
+    \caption{Success rating of serverless adoption among survey respondents, broken down by serverless experience level.}
+    \label{fig:3_serverless_adoption_rating}
+\end{figure}
+
+In figure \ref{fig:3_serverless_adoption_rating} is illustrate how adoption rates varied by
+experience, with half of those using serverless for over three years considering their
+implementation a success, compared to a lower success rate among newer adopters. This suggests a
+correlation between experience with serverless technologies and successful deployment, highlighting
+the importance of familiarity and understanding of serverless paradigms in achieving positive
+outcomes.
+\newline\newline
+The data indicates that the serverless model is gaining traction beyond the realm of
+early adopters and innovators, with a diverse range of professionals from various fields showing
+interest. This is indicative of a broader trend towards infrastructure management models that offer
+greater efficiency and flexibility. The survey paints a picture of serverless as a maturing
+field with significant potential for growth, as more organizations begin to realize and leverage its
+advantages for building modern, scalable, and cost-effective applications.
+
+\subsubsection{Costs}
+The cost of using a FaaS model can be lower than using a Software as a Service model, as you only
+pay for the specific code you run, rather than paying a monthly or yearly fee for access to the
+entire software. Additionally, with a FaaS model, you only pay for the resources that your code
+actually uses, like computing time and data storage, rather than paying for the entire server or
+infrastructure even when your code is not running. This can result in significant cost savings; it
+tends to be more cost-effective than SaaS for short-lived, event-driven workloads as the customer
+only pays for the specific computation and resources used by each
+function\textsuperscript{\cite{serverless_8}}.
+\newline\newline
+In this section, we delve into a practical case study drawn from 'Horsa' the company hosting my
+thesis research, to illustrate the impact of Enterprise Resource Planning systems in small business
+environments. The case involves a small Italian company utilizing Microsoft Business Central, with a
+user base of seven employees. By extrapolating this data and applying it to a Function as a Service
+environment, we aim to demonstrate the cost-efficiency and potential benefits of embracing FaaS
+technology in small-scale business operations. This analysis not only highlights the adaptability
+and scalability of FaaS solutions but also presents a tangible example of how transitioning to
+cloud-based platforms can offer significant cost savings and operational advantages for small
+businesses.
+
+\begin{table}
+    \centering
+    \begin{tabular}{p{2cm} | p{2.5cm} | p{4.5cm} | p{2.5cm}}
+        \hline\hline
+        Object     & Usage per day & Conversion                                         & Request/Day \\
+        \hline
+        Pages      & 3K            & 1 Page = 2 function request 1 to read - 1 to write & 6K          \\
+        Report     & 150           & 1 Report = 1 function req.                         & 150         \\
+        WebService & 76K           & 1 WS = 1 function req.                             & 76K         \\
+        \hline \hline
+    \end{tabular}
+    \caption{Example of ERP usage}
+    \label{tab:3_table_ERP_usage}
+\end{table}
+
+Inside the teble \ref{tab:3_table_ERP_usage}, we can see the usage of the ERP system. Now applying
+these data to the FaaS cost model.
+Considering a month with 26 working days we have:
+\begin{equation}
+    (150 + 6000 + 76000) * 26 = 2135900 \cong 2.2M \text{ Request per month}
+\end{equation}
+We will use the FaaS service called Lambda provided by Amazon AWS, prices are calculated based on
+the number of calls, duration, and memory allocation for the respective function. By definition,
+Lambda functions must be fast and lightweight, so we will use half a second as the duration of each
+request and an allocated memory amount of 256 Mb, we will calculate the price not considering the
+free plan offered by Amazon:
+\begin{equation}
+    \text{Total processing time: } 2200000 * 0.5 sec = 1100000.00 sec
+\end{equation}
+\begin{equation}
+    256 \text{ MB} * 0.0009765625 = 0.25 \text{ GB}
+\end{equation}
+\begin{equation}
+    \text{Total processing: } 0.25 \text{ GB} * 1100000.00 sec = 275000 \text{ GB/s}
+\end{equation}
+\begin{equation}
+    \text{Total processing cost: } 275000 \text{ GB/s} * 0.0000195172 \text{ USD} = 5.3672 \text{ USD}
+\end{equation}
+\begin{equation}
+    \text{Request cost: } 2200000 * 0.00000023 \text{ USD} = 0.51 \text{ USD}
+\end{equation}
+\begin{equation}
+    \text{Total monthly lambda cost: }5.3672 \text{ USD} + 0.51 \text{ USD} = 5.88 \text{ USD}
+\end{equation}
+To this we must also add the cost of the API Gateway for routing requests:
+\begin{equation}
+    2200000 * 0.00000117 \text{ USD} = 2.57 \text{ USD}
+\end{equation}
+Finally, the total cost of the enviroment is 8,45 USD per month, that show the flexibility and
+cost-effectiveness of the system. This example gives us the reason why the serverless has rapidly
+become a popular choice for many organizations, even if the concept is still relatively new.
 
 \section{Technologies}
 \subsection{Amazon AWS Services}
@@ -1003,7 +1386,9 @@ pay-as-you-go pricing.
 \subsubsection{AWS SNS}
 \subsection{Firebase}
 \subsection{GO Language}
+% https://www.datadoghq.com/state-of-serverless/
 \subsubsection{GO CDK}
 \subsubsection{GORM}
 \subsection{Serverless framework}
+% https://www.datadoghq.com/state-of-serverless/
 \subsection{Flutter}
