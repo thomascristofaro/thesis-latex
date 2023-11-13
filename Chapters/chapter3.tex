@@ -1,16 +1,16 @@
 \chapter{Fundamentals}
 In this chapter, we embark on a journey to construct the narrative foundation that underpins our
-thesis. Here, we will introduce the essential design concepts and the innovative technologies that
-have been employed in the creation of the platform known as Kube. This platform is envisioned as an
-ERP system that not only encapsulates the core functionalities typical of such software but also
-adopts a serverless and microservice architecture. To achieve this, we will delve into the process
-of fragmenting the ERP into smaller, more manageable modules. These modules will then be intricately
-woven together and seamlessly integrated within a FaaS (Function as a Service) model environment,
-exemplified by services such as AWS Lambda. This integration is key to realizing a system that is
-both highly modular and scalable, leveraging the agility afforded by serverless computing and the
-robustness of microservices. Through this exploration, we aim to provide a detailed understanding of
-both the design philosophy and the technological framework that define the functionality and
-innovation of Kube.
+thesis. Here, we will introduce the essential design concepts and the architectural principles that
+have been employed in the creation of the platform known as Kube. Central to this discussion is
+cloud computing, which serves as the bedrock for the platform's operational environment. We then
+navigate through the intricacies of microservices, an architectural style that breaks down
+applications into smaller, independently deployable services. A pivotal aspect of Kube's
+architecture is its serverless framework, which facilitates greater scalability and efficiency.
+Complementing this is the implementation of sagas, a sequence of transactions that manage failures
+and ensure data consistency across services. Lastly, the event-driven architecture of Kube plays a
+crucial role, enabling reactive programming and responsive interactions within the platform.
+Together, these concepts embody the architectural design of Kube, prioritizing flexibility,
+scalability, and robust service integration.
 
 \section{Cloud Computing}
 The advent of cloud computing has revolutionized the way we approach computing and data management.
@@ -982,18 +982,26 @@ applications.\textsuperscript{\cite{microservices_book}}.
 
 \begin{figure}
     \centering
-    \includegraphics[scale=0.5]{Pictures/3_serverless_example.jpg}
+    \includegraphics[scale=0.4]{Pictures/3_serverless_example_2.jpg}
     \caption{Example of Serverless Architecture.}
     \label{fig:3_serverless_example}
 \end{figure}
 
-The image \ref{fig:3_serverless_example} illustrates the architecture of a simple "to-do list" web application built using
-serverless technology on the Amazon public cloud. This event-driven application is designed to allow
-registered users to manage their tasks efficiently. Users interact with the application to create,
-update, view, and delete to-do items. The architecture integrates several Amazon Web Services to
-achieve this functionality. Each component of the architecture is orchestrated to respond to
-specific events triggered by user actions, such as adding a new to-do item or marking one as
-complete, making the entire application responsive and scalable without the need to manage server
+The diagram \ref{fig:3_serverless_example} presents a serverless data processing architecture that
+enables automatic handling of interview notes. When documents in Markdown format are uploaded to a
+cloud-based storage service, the system is designed to trigger multiple automated workflows. The
+first workflow involves a function-as-a-service platform, which is activated to convert the Markdown
+documents into HTML files; these are then saved back to the storage service in a different location
+for future access. Simultaneously, a second workflow commences, where another function is triggered
+through a message queuing service to perform sentiment analysis on the text. The results of this
+analysis are stored in a NoSQL database, allowing for efficient retrieval and analysis of the
+processed data.
+
+The entire process is monitored by a cloud-based monitoring system that watches over the message
+queues and function executions. In case of any errors or malfunctions, an alert system is activated
+to send notifications, ensuring that any issues are addressed promptly. This serverless architecture
+exemplifies the modern approach to cloud computing, emphasizing automated, event-driven processes
+that facilitate quick, scalable, and efficient data processing without the need for managing server
 infrastructure\textsuperscript{\cite{serverless_1}}.
 
 \subsection{Benefits}
@@ -1136,7 +1144,7 @@ development\textsuperscript{\cite{event_book}}.
 \begin{figure}
     \centering
     \includegraphics[scale=0.5]{Pictures/3_faas.png}
-    \caption{Evolution of architectures.}% https://www.cbinsights.com/research/serverless-cloud-computing/
+    \caption{Evolution of architectures\textsuperscript{\cite{serverless_9}}.}
     \label{fig:3_faas}
 \end{figure}
 
@@ -1194,7 +1202,7 @@ integrity of the microservice instance as the fundamental unit of deployment in 
 
 \begin{figure}
     \centering
-    \includegraphics[scale=0.5]{Pictures/3_single_function.png}
+    \includegraphics[scale=1]{Pictures/3_single_function.png}
     \caption{Example of Function per microservice.}
     \label{fig:3_single_function}
 \end{figure}
@@ -1220,7 +1228,7 @@ objects managed together and often represent real-world entities.
 
 \begin{figure}
     \centering
-    \includegraphics[scale=0.5]{Pictures/3_multiple_functions.png}
+    \includegraphics[scale=1]{Pictures/3_multiple_functions.png}
     \caption{Example of Function per aggregate.}
     \label{fig:3_multiple_functions}
 \end{figure}
@@ -1256,11 +1264,13 @@ compelling strategy for organizations seeking to bolster user experiences and ma
 edge, indicating a strong and dynamic future for the serverless computing
 market\textsuperscript{\cite{serverless_6}}.
 
+\newpage
+
 \subsubsection{Trends and Success Rates}
 
 \begin{figure}
     \centering
-    \includegraphics[scale=0.2]{Pictures/3_serverless_adoption.png}
+    \includegraphics[scale=0.15]{Pictures/3_serverless_adoption.png}
     \caption{Serverless adoption among survey respondents’ organizations.}
     \label{fig:3_serverless_adoption}
 \end{figure}
@@ -1278,7 +1288,7 @@ cost efficiency and scalability but also the agility to adapt to new business re
 
 \begin{figure}
     \centering
-    \includegraphics[scale=0.2]{Pictures/3_serverless_adoption_rating.png}
+    \includegraphics[scale=0.3]{Pictures/3_serverless_adoption_rating.png}
     \caption{Success rating of serverless adoption among survey respondents, broken down by serverless experience level.}
     \label{fig:3_serverless_adoption_rating}
 \end{figure}
@@ -1368,27 +1378,3 @@ To this we must also add the cost of the API Gateway for routing requests:
 Finally, the total cost of the enviroment is 8,45 USD per month, that show the flexibility and
 cost-effectiveness of the system. This example gives us the reason why the serverless has rapidly
 become a popular choice for many organizations, even if the concept is still relatively new.
-
-\section{Technologies}
-\subsection{Amazon AWS Services}
-% https://aws.amazon.com/what-is-aws/
-AWS is recognized as the world's most comprehensive and broadly adopted cloud platform. It offers
-over 175 fully featured services from data centers globally. AWS is utilized by a diverse range of
-customers, including rapidly growing startups, large enterprises, and leading government agencies,
-to reduce costs, increase agility, and accelerate innovation. The platform provides a wide array of
-cloud-based products including compute, storage, databases, analytics, networking, mobile, developer
-tools, management tools, IoT, security, and enterprise applications, all available on-demand with
-pay-as-you-go pricing.
-\subsubsection{AWS API Gateway}
-\subsubsection{AWS Lambda}
-\subsubsection{AWS RDS}
-\subsubsection{AWS SQS}
-\subsubsection{AWS SNS}
-\subsection{Firebase}
-\subsection{GO Language}
-% https://www.datadoghq.com/state-of-serverless/
-\subsubsection{GO CDK}
-\subsubsection{GORM}
-\subsection{Serverless framework}
-% https://www.datadoghq.com/state-of-serverless/
-\subsection{Flutter}

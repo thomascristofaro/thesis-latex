@@ -1,27 +1,100 @@
-\chapter{Conclusions and future works}
-% microservices_book
-The way forward
+\chapter{Implementation}
+% In this chapter, we embark on a journey to construct the narrative foundation that underpins our
+% thesis. Here, we will introduce the essential design concepts and the innovative technologies that
+% have been employed in the creation of the platform known as Kube. This platform is envisioned as an
+% ERP system that not only encapsulates the core functionalities typical of such software but also
+% adopts a serverless and microservice architecture. To achieve this, we will delve into the process
+% of fragmenting the ERP into smaller, more manageable modules. These modules will then be intricately
+% woven together and seamlessly integrated within a FaaS (Function as a Service) model environment,
+% exemplified by services such as AWS Lambda. This integration is key to realizing a system that is
+% both highly modular and scalable, leveraging the agility afforded by serverless computing and the
+% robustness of microservices. Through this exploration, we aim to provide a detailed understanding of
+% both the design philosophy and the technological framework that define the functionality and
+% innovation of Kube.
 
-I remain convinced that the future for most developers is using a platform that hides much of the
-underlying detail from them. For many years, Heroku was the closest thing I could point to in terms
-of something that found the right balance, but now we have FaaS and the wider ecosystem of turnkey
-serverless offerings that chart a different path.
+\section{Requirements}
+Before starting development, requirements are established to define the properties of the product. It's important that these requirements are thorough and coherent, covering all necessary features without conflicts or inconsistencies. However, creating these documents can be challenging and errors may occur, such as incomplete or ambiguous feature descriptions, redundancy, or important details being omitted. To address these challenges, software engineering techniques have been developed to formalize the requirements and minimize the occurrence of errors.\\
+% metti la reference e aumentare l'interlinea e rientro
+In particular, ISO9126/25010 is an international standard that provide a framework for evaluating the quality of software products. The quality characteristics in the standard are: functionality, reliability, usability, efficiency, maintainability, ''security, compatibility'' and portability.
+ISO9126/25010 is widely used in software engineering and quality assurance to guide the development and evaluation of software products. %It provides a standardized way to evaluate and communicate the quality of software, which can help organizations to make better decisions about software acquisition, development, and maintenance.
+Using this standard can help to identify the actors involved and the characteristics of functional and non-functional requirements.
 
-There are still issues to be ironed out with FaaS, but I feel that, while the current crop of
-offerings still need to change to resolve the issues with them, this is the sort of platform that
-most developers will end up using. Not all applications will fit neatly into a FaaS ecosystem given
-the constraints, but for those that do, people are already seeing significant benefits. With more
-and more work going into Kubernetes-backed FaaS offerings, people who are unable to make direct use
-of the FaaS solutions provided by the main cloud providers will increasingly be able to take
-advantage of this new way of working.
+\subsection{Stakeholders}
+A stakeholder refers to any role, person, group, or organization that has an interest in a software project or system being developed. This could include end-users, customers, investors, project managers, developers and other individuals or groups involved in the development, deployment, and maintenance of the software.
+Identifying all relevant stakeholders is important for considering diverse perspectives and generating relevant requirements for the system. As shown in Table x, numerous stakeholders play a role in the process.
+% da inserire tabella
+% End-users: These are the people who will use the ERP system in their day-to-day work. They may include employees from various departments within the organization.
+% Customers: These are the organizations or businesses that are purchasing the ERP system. They have a vested interest in ensuring the system meets their needs and requirements.
+% IT staff: These are the individuals responsible for installing, configuring, and maintaining the ERP system.
+% Project managers: These are the individuals responsible for overseeing the ERP project and ensuring that it is completed on time and within budget.
+% Business analysts: These are the individuals responsible for gathering and analyzing business requirements and translating them into technical specifications.
+% Developers: These are the individuals responsible for creating the software code that makes up the ERP system.
+% Testers: These are the individuals responsible for ensuring that the ERP system works correctly and meets all of the required specifications.
+% Vendors: These are the organizations that provide the ERP software and related services, such as installation, configuration, and support.
+% Regulators: In some cases, there may be regulatory bodies or government agencies that have an interest in the ERP system, such as in industries with strict compliance requirements.
 
-So, while FaS may not work for everything, it’s certainly something I urge people to explore. And
-for my clients who are looking at moving to cloud-based Kubernetes solutions, I’ve been urging many
-of them to explore FaaS first, as it may give them everything they need while hiding significant
-complexity and offloading a lot of work.
+\subsection{Functional and Non-functional}
+Functional requirements and non-functional requirements are two types of requirements that are used to specify what a system or software application should do and how it should perform.
+They are important for the successful development and implementation of a system or software application. The functional requirements ensure that the software application meets the needs of its users, while the non-functional requirements ensure that the system is reliable, efficient, and secure.
 
-I’m seeing more organizations making use of FaaS as part of a wider solution, picking FaaS for
-specific use cases where it fits well. A good example would be the BBC, which makes use of Lambda
-functions as part of its core technology stack that provides the BBC News website. The overall
-system uses a mix of Lambda and EC2 instances—with the EC2 instances often being used in situations
-in which Lambda function invocations would be too expensive.3
+\subsubsection{Functional requirements}
+Functional requirements describe what the system should do in terms of its functionalities, features, and capabilities. They define the specific tasks that the software application should be able to perform to meet the needs of its users. For distinguish one requirement from another it is important to assign for each functionality an ID, in order to easy identify it and trace throughout the life cycle of the project (Table x).
+
+% da inserire tabella
+% Purchasing management: The system must be able to manage the entire purchasing process, from purchase requests to inventory management to actual purchase of products or services.
+% Production management: The system must be able to manage the production process, including planning, scheduling, and control of production, as well as management of work orders.
+% Logistics management: The system must be able to manage logistics, including storage, transportation, delivery, and tracking of goods.
+% Sales management: The system must be able to manage the entire sales process, from quotes to inventory management to billing and post-sales support.
+% Human resources management: The system must be able to manage HR processes, such as personnel management, training, performance, and human resources planning.
+% Financial management: The system must be able to manage financial processes, including accounting, billing, budget management, bank activity management, and tax management.
+% Project management: The system must be able to manage projects, from planning activities to resource management, to execution and control phases.
+
+\subsubsection{Non-functional requirements}
+Non-functional requirements describe how the system should perform in terms of its performance, reliability, security, usability, and other aspects that are not directly related to the specific functionalities to be implemented. They refer to operating methods and constraints, such as response times, supported platforms, choice of languages, required resources, tools and various implementation techniques. They must be measurable and may be more critical than functional requirements.
+They are identified with a unique code and it is also necessary to specify their type associated to the ISO properties and which functional requirements they refer to (Table x).
+
+% quello che sta scritto qui non c'entra nulla vedi sotto
+% \begin{table}
+%     \centering
+%     \begin{tabular}{p{2cm} | p{2.5cm} | p{4.5cm} | p{2.5cm}}
+%         \hline\hline
+%         ID         & Type & Description                                        & Refers to \\
+%         \hline
+%         Pages      & 3K   & 1 Page = 2 function request 1 to read - 1 to write & 6K        \\
+%         Report     & 150  & 1 Report = 1 function req.                         & 150       \\
+%         WebService & 76K  & 1 WS = 1 function req.                             & 76K       \\
+%         \hline \hline
+%     \end{tabular}
+%     \caption{Example of ERP usage}\label{table_ERP_vendor}
+% \end{table}
+% da inserire tabella
+% Scalability: The system should be able to handle a high volume of transactions and data, as it must be able to support all of the organization's functionalities.
+% Reliability: The system should be highly reliable, as it must always be available for user access and use.
+% Security: The system should be highly secure, as it manages sensitive business data, financial information, and personnel information.
+% Usability: The system should be easy to use and intuitive for users, as ERP system users may have varying levels of computer proficiency.
+% Performance: The system should be able to process and provide information in real-time, as business data must always be up-to-date.
+% Maintainability: The system should be easily maintainable and modifiable, as business needs may change and require the addition of new functionalities.
+% Interoperability: The system should be compatible with other software systems and technologies used by the organization, as the ERP system must be integrated with other business applications.
+
+
+\section{Server application}
+\subsection{Final Architecture}
+% immagine architettura finale con l'integrazione dei servizi Amazon
+\subsection{Database}
+% un database SQL per ogni microservizio
+% quali sono le tabelle
+
+\section{Use Case}
+\subsection{REST APIs}
+\subsubsection{Security}
+\subsubsection{User APIs}
+\subsubsection{Customer APIs}
+\subsubsection{Order APIs}
+\subsubsection{Warehouse APIs}
+\subsection{Async task}
+\subsubsection{Posting order}
+% Posting shipment
+% Posting invoice
+
+\section{Client Application}
+\subsection{User Interface}
