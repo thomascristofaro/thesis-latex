@@ -1,27 +1,71 @@
 \chapter{Conclusions and future works}
-% microservices_book
-The way forward
+As outlined in the introduction, this thesis sets out to develop a platform that handles key
+operations of an Enterprise Resource Planning system while incorporating microservices and
+serverless computing design patterns, ensuring accessibility across various platforms. With the
+completion of the platform's initial version, we have established a technical foundation that
+supports the ongoing development of diverse modules and functionalities. The platform is designed
+for easy extensibility and scalability, making it adaptable to a range of needs and requirements.
+Currently, the platform can be deployed on an AWS tenant using the Serverless Framework. Once user
+settings are configured, it becomes operational. The platform supports all CRUD (Create, Read,
+Update, Delete) operations for its main entities, such as customers, orders, and shipments. It
+features a dashboard displaying key statistics and allows for the posting of operations on orders.
+This triggers asynchronous processes like the creation of new shipments and invoicing for customers.
+Technically, the chosen technologies lay a valid foundation for future enhancements and the
+distribution of the platform across various cloud infrastructures. Despite encountering several
+challenges during development, the thesis reaffirms the belief in the future of platforms like
+Function as a Service, which streamline development by abstracting many underlying details. While
+FaaS may not be suitable for all applications due to certain constraints, it offers significant
+benefits for compatible systems, marking a progressive step in software development.
+\newline\newline
+Looking ahead, there are multiple areas for future development of the platform. Building on its
+current capabilities, a wide array of ERP functionalities could be integrated, including warehouse
+management, production, accounting, and human resources management. Additionally, the introduction
+of a Command Line Interface (CLI) could offer a streamlined way to interact with the platform’s
+code, enabling the automatic conversion of YAML files into templates for various cloud providers.
+Another promising avenue for expansion is the incorporation of a NoSQL database like AWS DynamoDB or
+Azure CosmosDB. This would allow for data storage in a truly serverless mode, enhancing the
+platform’s serverless capabilities. Furthermore, the microservices architecture of the platform
+lends itself well to the integration of a Machine Learning (ML) module. Such a module could analyze
+platform data to provide valuable insights, such as identifying the best-selling products, top
+customers, and leading suppliers.
+\newline\newline
+An additional area of future research could focus on the environmental implications of serverless
+computing. In the context of growing concerns about energy consumption in data centers, serverless
+computing, with its features like pay-per-use, auto-scaling, and multi-tenancy, could offer a more
+sustainable solution. This aspect of serverless computing is particularly relevant in today’s world
+and warrants further exploration to understand its potential in reducing the environmental footprint
+of data centers.
 
-I remain convinced that the future for most developers is using a platform that hides much of the
-underlying detail from them. For many years, Heroku was the closest thing I could point to in terms
-of something that found the right balance, but now we have FaaS and the wider ecosystem of turnkey
-serverless offerings that chart a different path.
+% As already anticipated in the introduction, the objective of the thesis is to create a platform
+% capable of handle the main operations of an ERP system and implementing design concepts and pattern
+% of microservices and serverless computing, easily accessible via different platforms. At the end of
+% the first version of the platform, we have few ERP specific functionalities but we have a technical
+% base for continuing the development of different modules and functionalities. In fact, the platform
+% has been designed to be easily extensible and scalable, so that it can be adapted to different needs
+% and requirements. At the moment the platform can be deployed on an AWS tenant, thanks to Serverless
+% Framework, and after setted the users, the platform is ready to be used. We can execute all CRUD
+% operations on the main entities of the platform, such as customers, orders, shipments, etc., we have
+% a dashboard that shows the main statistics of the platform, and we can execute a posted operation on
+% an order, which will trigger the creation of a new shipment and the creation of an invoice for the
+% customer, in an asynchronous way. Furthermore, from a technical point of view, we can confirm that
+% the technologies used are valid foundations to then extend the functionalities with future
+% developments and allow the platform to be distributed through different cloud infrastructures. even
+% if I found several obstacles during the development of the platform, I remain convinced that the
+% future for most developers is using a platform that hides much of the underlying detail from them,
+% like FaaS. Not all applications will fit neatly into a FaaS ecosystem given the constraints, but for
+% those that do, people are already seeing significant benefits. 
 
-There are still issues to be ironed out with FaaS, but I feel that, while the current crop of
-offerings still need to change to resolve the issues with them, this is the sort of platform that
-most developers will end up using. Not all applications will fit neatly into a FaaS ecosystem given
-the constraints, but for those that do, people are already seeing significant benefits. With more
-and more work going into Kubernetes-backed FaaS offerings, people who are unable to make direct use
-of the FaaS solutions provided by the main cloud providers will increasingly be able to take
-advantage of this new way of working.
-
-So, while FaS may not work for everything, it’s certainly something I urge people to explore. And
-for my clients who are looking at moving to cloud-based Kubernetes solutions, I’ve been urging many
-of them to explore FaaS first, as it may give them everything they need while hiding significant
-complexity and offloading a lot of work.
-
-I’m seeing more organizations making use of FaaS as part of a wider solution, picking FaaS for
-specific use cases where it fits well. A good example would be the BBC, which makes use of Lambda
-functions as part of its core technology stack that provides the BBC News website. The overall
-system uses a mix of Lambda and EC2 instances—with the EC2 instances often being used in situations
-in which Lambda function invocations would be too expensive.3
+% With regard to future work, there are several fronts that can be developed. In fact, starting from
+% the current state, a lot of ERP functionalities can be implemented, such as managing the warehouse,
+% the production, the accounting, the human resources, etc. Furthermore, the platform can be extended
+% with a CLI interface, which can be used to interact with the platform code and convert automatically
+% the yml files into the corresponding cloud provider template. Another interesting development could
+% be the implementation of a NoSQL database, such as AWS DynamoDB, or Azure CosmosDB, which can be
+% used to store the data of the platform, but in a really serverless mode, making the platform totally
+% serverless. Finally, due to the microservices nature, we could implement a ML module, which can be
+% used to analyze the data of the platform and provide useful information to the user, such as the
+% best selling products, the best customers, the best suppliers, etc. Another interesting future study
+% could be the research about the green aspect of the serverless computing, which is a really
+% important topic in the current world, and the serverless computing could be a really good solution
+% to reduce the energy consumption of the data centers, thanks to the characteristics of the
+% serverless computing, such as the pay-per-use model, the auto-scaling, and the multi-tenancy. 

@@ -1,23 +1,65 @@
 \chapter{Introduction}
+In today's era of digital transformation, there's an urgent need for agile, efficient, and scalable
+information systems in the corporate world, with Enterprise Resource Planning (ERP) systems playing
+a critical role in integrating and optimizing business processes. However, the increasing complexity
+and the requirement for flexibility highlight the limitations of traditional ERP architectures.
+These platforms often rely on outdated technology, are built on monolithic architectures, and follow
+archaic pricing models. Many such systems struggle with compatibility issues on modern operating
+systems, suffer from obsolete graphical interfaces, and are not user-friendly.
+\newline\newline
+The aim of this thesis, therefore, is to develop an ERP platform called Kube that encapsulates ERP
+functionalities within a modern technological framework. This includes seamless cloud integration
+and an updated pricing model. The envisioned platform is designed to be cross-platform compatible,
+ensuring accessibility across all current operating systems without the hassle of complex
+installations. This approach is intended to address the shortcomings of traditional ERP systems by
+offering a solution that is both technologically advanced and adaptable to the evolving digital
+landscape.
 
 \section{Overview of the Thesis}
-Enterprise resource planning (ERP) refers to software used by
-organizations to manage their day-to-day business activities such as
-sales, procurement, accounting, manufacturing, and human
-resources. These systems streamline organizational activities and
-integrate data across departments, business units, and locations so
-that each of these entities does not need its own business system.
-The power of ERP systems is that they consolidate business data
-into one centralized database that serves as a “single source of the
-truth.” In practice, this means that employees in every area of the
-enterprise can access the data needed to perform their jobs, and this
-data is real-time and consistent across the company. Having one
-“version of the truth” increases operational efficiency, improves
-decision making, and reduces duplicate data. Organizations of every
-size, in every industry, and all over the globe use ERP systems. ERP
-knowledge is critical for business users, IT staff, or anyone that will
-interact with them in any capacity. This chapter serves as an
-introduction to ERP systems. It begins by defining ERP and outlining
-key characteristics of ERP systems and the reasons for implementing
-them, along with the drawbacks. The chapter concludes by charting
-the evolution of ERP and describing the current ERP marketplace.
+% da rileggere
+This document presents a thorough exploration of the key arguments and design choices essential to
+achieving the set objectives. The thesis starts with the Chapter 2, an in-depth look into Enterprise
+Resource Planning (ERP) systems. It starts with a discussion on the motivations behind implementing
+ERP, highlighting the benefits and strategic advantages they offer. The chapter then critically
+assesses the drawbacks of ERP systems, providing a well-rounded perspective on their limitations and
+challenges. It also details the various modules of ERP systems and illustrates how they collaborate
+to enhance business processes. A significant portion of this chapter is dedicated to the technology
+underpinning ERP systems, with a special focus on the Three-Tier Client-Server Architecture.
+Additionally, the market-related aspects of ERP systems are examined, including an analysis of the
+costs involved in their implementation and maintenance, and a comparison of the competitive
+landscape.
+\newline\newline
+Chapter 3 marks the beginning of our deep dive into the foundational narrative of our thesis. This
+chapter introduces the key design concepts and architectural principles behind the Kube platform. It
+emphasizes cloud computing as the cornerstone of the platform's operating environment. The chapter
+also delves into the concept of microservices, an architectural approach that segments applications
+into smaller, independently functioning services. A critical element of Kube's architecture is its
+serverless framework, which promotes scalability and operational efficiency. The implementation of
+sagas is discussed, outlining their role in managing failures and maintaining data consistency
+across services. The chapter concludes with an exploration of event-driven architecture,
+highlighting its importance in enabling reactive programming and facilitating responsive
+interactions within the platform. These elements collectively define the architectural design of
+Kube, with a focus on flexibility, scalability, and seamless service integration.
+\newline\newline
+Then, the Chapter 4 of the thesis transitions into the practical application, specifically focusing
+on the technologies implemented in the Kube platform. Central to this are the AWS services, which
+include Lambda for serverless computing, SQS and SNS for effective messaging, and RDS for efficient
+database management. These services form a robust and scalable infrastructure essential to Kube's
+functionality. The platform also capitalizes on serverless architecture to enhance resource
+efficiency and minimize operational costs. Additionally, the Go programming language is employed for
+its effectiveness in constructing high-performance applications. The user interface of Kube,
+designed using Flutter, offers both versatility and aesthetic appeal, significantly improving the
+platform's user experience. Collectively, these technologies are pivotal in ensuring Kube’s high
+performance and user satisfaction.
+\newline\newline
+Finally, in Chapter 5, the focus shifts to the actual implementation of the application. The chapter
+begins by delineating the fundamental requirements that have guided the Kube platform's development,
+emphasizing strategic goals, technical necessities, and business rationale. This sets the stage for
+a comprehensive exploration of the platform’s final architecture, which is marked by a Microservices
+framework executed through a Function as a Service (FaaS) model, utilizing AWS services. The
+narrative then moves to practical use cases, showcasing how the platform functions in real-world
+scenarios. The chapter concludes by examining the client application, specifically the development
+and design of its user interface using Flutter. This not only augments the robustness of Kube's
+backend but also significantly enhances user interaction. This chapter aims to demystify the
+complexities of the Kube platform, underlining its significance as a revolutionary tool in
+enterprise resource planning and its vast potential in the field.
