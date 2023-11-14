@@ -1,44 +1,71 @@
-\chapter{Implementation}
-% In this chapter, we embark on a journey to construct the narrative foundation that underpins our
-% thesis. Here, we will introduce the essential design concepts and the innovative technologies that
-% have been employed in the creation of the platform known as Kube. This platform is envisioned as an
-% ERP system that not only encapsulates the core functionalities typical of such software but also
-% adopts a serverless and microservice architecture. To achieve this, we will delve into the process
-% of fragmenting the ERP into smaller, more manageable modules. These modules will then be intricately
-% woven together and seamlessly integrated within a FaaS (Function as a Service) model environment,
-% exemplified by services such as AWS Lambda. This integration is key to realizing a system that is
-% both highly modular and scalable, leveraging the agility afforded by serverless computing and the
-% robustness of microservices. Through this exploration, we aim to provide a detailed understanding of
-% both the design philosophy and the technological framework that define the functionality and
-% innovation of Kube.
+\chapter{Kube Platform}
+In this chapter, we commence on an in-depth exploration of the Kube platform, an implementation of
+innovative ERP platform prototype. We start by outlining the fundamental requirements that have
+shaped the development of the Kube platform, highlighting the strategic objectives, technical needs,
+and business logic that inform its design. This leads us into a detailed examination of the
+platform’s final architecture, which showcases a Microservices framework implemented through a
+Function as a Service (FaaS) model, using AWS services. We then transition to practical
+applications, where specific use cases demonstrate the platform's operational flow and its
+real-world applicability. The chapter ends with a focus on the client application, delving into the
+design and development of a user interface using Flutter, which not only complements the platform's
+robust backend but also enhances the overall user experience. Throughout this chapter, we aim to
+unravel the complexities of the Kube platform, illustrating its role as a transformative force in
+the field of enterprise resource planning and highlighting its potential.
 
 \section{Requirements}
-Before starting development, requirements are established to define the properties of the product. It's important that these requirements are thorough and coherent, covering all necessary features without conflicts or inconsistencies. However, creating these documents can be challenging and errors may occur, such as incomplete or ambiguous feature descriptions, redundancy, or important details being omitted. To address these challenges, software engineering techniques have been developed to formalize the requirements and minimize the occurrence of errors.\\
-% metti la reference e aumentare l'interlinea e rientro
-In particular, ISO9126/25010 is an international standard that provide a framework for evaluating the quality of software products. The quality characteristics in the standard are: functionality, reliability, usability, efficiency, maintainability, ''security, compatibility'' and portability.
-ISO9126/25010 is widely used in software engineering and quality assurance to guide the development and evaluation of software products. %It provides a standardized way to evaluate and communicate the quality of software, which can help organizations to make better decisions about software acquisition, development, and maintenance.
-Using this standard can help to identify the actors involved and the characteristics of functional and non-functional requirements.
+Before starting development, requirements are established to define the properties of the product.
+It's important that these requirements are thorough and coherent, covering all necessary features
+without conflicts or inconsistencies. However, creating these documents can be challenging and
+errors may occur, such as incomplete or ambiguous feature descriptions, redundancy, or important
+details being omitted. To address these challenges, software engineering techniques have been
+developed to formalize the requirements and minimize the occurrence of errors.
+\newline\newline
+ISO/IEC 25010\textsuperscript{\cite{ch5_1}}, an international standard, serves as a comprehensive
+framework for assessing software product quality. This standard enumerates several key quality
+characteristics, including functionality, reliability, usability, efficiency, maintainability,
+security, compatibility, and portability. Its widespread application in software engineering and
+quality assurance offers a standardized approach to evaluating and articulating software quality.
+This facilitates more informed decisions in software acquisition, development, and maintenance.
+ISO/IEC 25010 aids in identifying the actors involved and delineating both functional and
+non-functional requirements.
 
 \subsection{Stakeholders}
-A stakeholder refers to any role, person, group, or organization that has an interest in a software project or system being developed. This could include end-users, customers, investors, project managers, developers and other individuals or groups involved in the development, deployment, and maintenance of the software.
-Identifying all relevant stakeholders is important for considering diverse perspectives and generating relevant requirements for the system. As shown in Table x, numerous stakeholders play a role in the process.
-% da inserire tabella
-% End-users: These are the people who will use the ERP system in their day-to-day work. They may include employees from various departments within the organization.
-% Customers: These are the organizations or businesses that are purchasing the ERP system. They have a vested interest in ensuring the system meets their needs and requirements.
-% IT staff: These are the individuals responsible for installing, configuring, and maintaining the ERP system.
-% Project managers: These are the individuals responsible for overseeing the ERP project and ensuring that it is completed on time and within budget.
-% Business analysts: These are the individuals responsible for gathering and analyzing business requirements and translating them into technical specifications.
-% Developers: These are the individuals responsible for creating the software code that makes up the ERP system.
-% Testers: These are the individuals responsible for ensuring that the ERP system works correctly and meets all of the required specifications.
-% Vendors: These are the organizations that provide the ERP software and related services, such as installation, configuration, and support.
-% Regulators: In some cases, there may be regulatory bodies or government agencies that have an interest in the ERP system, such as in industries with strict compliance requirements.
+A stakeholder refers to any role, person, group, or organization that has an interest in a software
+project or system being developed. This could include end-users, customers, investors, project
+managers, developers and other individuals or groups involved in the development, deployment, and
+maintenance of the software. Identifying all relevant stakeholders is important for considering
+diverse perspectives and generating relevant requirements for the system. As shown in Table
+\ref{tab:5_stakeholders}, numerous stakeholders play a role in the process.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|p{10cm}|}
+        \hline
+        \textbf{Stakeholder} & \textbf{Description}                                                                                                                                                 \\ \hline
+        End-users            & These are the people who will use the ERP system in their day-to-day work. They may include employees from various departments within the organization.              \\ \hline
+        Developers           & These are the individuals responsible for creating the software code that makes up the ERP system.                                                                   \\ \hline
+        Admin/IT staff       & These are the individuals responsible for installing, configuring, and maintaining the ERP system.                                                                   \\ \hline
+        Customers            & These are the organizations or businesses that are purchasing the ERP system. They have a vested interest in ensuring the system meets their needs and requirements. \\ \hline
+        Vendors              & These are the organizations that provide the ERP software and related services, such as installation, configuration, and support.                                    \\ \hline
+        Cloud Vendors        & These hosts the system and provide the necessary infrastructure for its operation. They are responsible for system availability, scalability, and security.          \\ \hline
+    \end{tabular}
+    \caption{Stakeholders of a Cloud ERP System.}
+    \label{tab:5_stakeholders}
+\end{table}
 
 \subsection{Functional and Non-functional}
-Functional requirements and non-functional requirements are two types of requirements that are used to specify what a system or software application should do and how it should perform.
-They are important for the successful development and implementation of a system or software application. The functional requirements ensure that the software application meets the needs of its users, while the non-functional requirements ensure that the system is reliable, efficient, and secure.
+Functional requirements and non-functional requirements are two types of requirements that are used
+to specify what a system or software application should do and how it should perform. They are
+important for the successful development and implementation of a system or software application. The
+functional requirements ensure that the software application meets the needs of its users, while the
+non-functional requirements ensure that the system is reliable, efficient, and secure.
 
 \subsubsection{Functional requirements}
-Functional requirements describe what the system should do in terms of its functionalities, features, and capabilities. They define the specific tasks that the software application should be able to perform to meet the needs of its users. For distinguish one requirement from another it is important to assign for each functionality an ID, in order to easy identify it and trace throughout the life cycle of the project (Table x).
+Functional requirements describe what the system should do in terms of its functionalities,
+features, and capabilities. They define the specific tasks that the software application should be
+able to perform to meet the needs of its users. For distinguish one requirement from another it is
+important to assign for each functionality an ID, in order to easy identify it and trace throughout
+the life cycle of the project (Table x).
 
 % da inserire tabella
 % Purchasing management: The system must be able to manage the entire purchasing process, from purchase requests to inventory management to actual purchase of products or services.
@@ -50,8 +77,13 @@ Functional requirements describe what the system should do in terms of its funct
 % Project management: The system must be able to manage projects, from planning activities to resource management, to execution and control phases.
 
 \subsubsection{Non-functional requirements}
-Non-functional requirements describe how the system should perform in terms of its performance, reliability, security, usability, and other aspects that are not directly related to the specific functionalities to be implemented. They refer to operating methods and constraints, such as response times, supported platforms, choice of languages, required resources, tools and various implementation techniques. They must be measurable and may be more critical than functional requirements.
-They are identified with a unique code and it is also necessary to specify their type associated to the ISO properties and which functional requirements they refer to (Table x).
+Non-functional requirements describe how the system should perform in terms of its performance,
+reliability, security, usability, and other aspects that are not directly related to the specific
+functionalities to be implemented. They refer to operating methods and constraints, such as response
+times, supported platforms, choice of languages, required resources, tools and various
+implementation techniques. They must be measurable and may be more critical than functional
+requirements. They are identified with a unique code and it is also necessary to specify their type
+associated to the ISO properties and which functional requirements they refer to (Table x).
 
 % quello che sta scritto qui non c'entra nulla vedi sotto
 % \begin{table}
