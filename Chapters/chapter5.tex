@@ -208,7 +208,7 @@ with a focus on modern cloud-native principles and best practices for microservi
 \subsubsection{Microservices components}
 \begin{figure}
     \centering
-    \includegraphics[scale=0.3]{Pictures/5_microservizio.png}
+    \includegraphics[scale=0.28]{Pictures/5_microservizio.png}
     \caption{Microservices components.}
     \label{fig:5_microservices}
 \end{figure}
@@ -329,21 +329,125 @@ automatically constructed from a GORM model are structured as indicated inside t
 \end{table}
 
 \subsection{Utility Microservice}
-% ora entreremo nel dettaglio di ogni microservizio
-% spiega come hai strutturato il database per microservizio
-% spiega il sistema di notification management
-% spiega il sistema di logging
-% esso serve a...
-\subsubsection{Database}
-\subsubsection{API REST}
-\subsubsection{Events}
-% API REST Create, code SQS create, SNS create, tabelle create
-\subsection{Sales Microservice}
-\subsection{Whse Microservice}
-\subsection{Financial Microservice}
+This microservice is responsible for managing the home page graph data, the navigation menu, and the
+logging system. It is the first microservice to be deployed, as it have the entry points of the
+client application. In this microservice there are three crucial componentes of the platform: the
+home page, the logging system and the navigation functionalities.
 
-\subsection{Posting Order Event}
+\subsubsection{Home Page}
+The home page is the first page that the user see when he log in the client application. It is
+composed by two graphs, one for the monthly trend of the orders and one for the distribution of the
+orders by customer. The data of these graphs are stored in the database of the microservice and are
+updated by the final event of the posting order chain, it call the graph update function. The home
+page is implemented by a page model, so through a Lambda function, which is triggered by HTTP API by
+the client. The Lambda function is responsible for updating the home page table.
+
+\subsubsection{Logging System}
+The logging component allows for monitoring and debugging the system. It is implemented through a
+FIFO Queue, using Amazon SQS, and a Lambda function, which is triggered by the queue. The Lambda
+function is responsible for writing the log to the database of the microservice, inside the Log
+tabel. Thanks to the thesis layer in the framework stack, a message to the logging queue is
+automatic sended when an error occurs in the platform (even in other microservices).
+
+\subsubsection{Navigation}
+The navigation component is responsible for managing the menu bar of the client application. It have
+a list of all the page ids that most be present in the client menu bar. This list is stored in the
+table navigation and is updated by the client application when the user customize the menu bar.
+It not have only ids information but also the order of the pages in the menu bar, the icon to show,
+the caption name to show and the entry point of the page. The entry point is the url of the page
+that the client application must call when the user click on the page in the menu bar, and it depends
+on the microservice that manage the page. The navigation component is implemented by a page model, so
+through a Lambda function, which is triggered by an HTTP API by the client. The Lambda function is
+responsible for updating the navigation table.
+
+\subsubsection{Functions}
+In the table \ref{tab:5_utility_functions} are summarized all the lambda functions of the utility
+microservice, with the relative description and the trigger event (type and name).
+
+\begin{table}
+    \centering
+    \begin{tabular}{|l|c|l|m{5.5cm}|}
+        \hline
+        \textbf{Name}  & \textbf{Type} & \textbf{Event Name} & \textbf{Description}                             \\ \hline
+        Home           & API           & /home               & handle home page GET request                     \\ \hline
+        GraphUpdate    & SNS           & OnFinishPostOrder   & Update graph data for home page                  \\ \hline
+        NavigationList & API           & /navigationlist     & represents the list page of navigation model     \\ \hline
+        NavigationCard & API           & /navigationcard     & represents the detailed page of navigation model \\ \hline
+        LogList        & API           & /loglist            & represents the list page of log model            \\ \hline
+        LogCard        & API           & /logcard            & represents the detailed page of log model        \\ \hline
+        LogMessage     & SQS           & LogMessageQueue     & for logging the message in RDS database          \\ \hline
+    \end{tabular}
+    \caption{Functions of utility microservice.}
+    \label{tab:5_utility_functions}
+\end{table}
+
+% aggiungere le tabelle?
+
+\subsection{Sales Microservice}
+This microservice is specifically designed to handle and manage customer and sales order data. It
+includes dedicated page functionalities that allow for efficient management and access to both
+customer and sales order information. The data related to these entity are securely stored in a
+specialized database, named 'sales', which is an integral part of this microservice. Additionally,
+this service is equipped with a lambda function that plays a crucial role in orchestrating the saga
+of posting orders. This function ensures that the process of managing and posting sales orders is
+conducted smoothly and effectively.
+
+\subsubsection{Functions}
+In the table \ref{tab:5_sales_functions} are summarized all the lambda functions of the sales
+microservice, with the relative description and the trigger event (type and name).
+
+\begin{table}
+    \centering
+    \begin{tabular}{|l|c|l|m{4.3cm}|}
+        \hline
+        \textbf{Name}      & \textbf{Type} & \textbf{Event Name}    & \textbf{Description}                                                                               \\ \hline
+        CustomerList       & API           & /customerlist          & represents the list page of customer model                                                         \\ \hline
+        CustomerCard       & API           & /customercard          & represents the detailed page of customer model                                                     \\ \hline
+        SalesOrderList     & API           & /salesorderlist        & represents the list page of sales order model                                                      \\ \hline
+        SalesOrderCard     & API           & /salesordercard        & represents the detailed page of sales order model, it has the button for start the posting process \\ \hline
+        SalesOrderLineList & API           & /salesorderlinelist    & represents the list page of sales order lines                                                      \\ \hline
+        SalesOrderLineCard & API           & /salesorderlinecard    & represents the detailed page of sales order lines                                                  \\ \hline
+        ChangeOrderStatus  & SQS           & ChangeOrderStatusQueue & the function that orchestrates the saga                                                            \\ \hline
+    \end{tabular}
+    \caption{Functions of sales microservice.}
+    \label{tab:5_sales_functions}
+\end{table}
+
+
+\subsection{Whse and Financial Microservice}
+These two microservices are tailor-made to manage shipments and invoices, each equipped with its
+respective page model and database. They incorporate lambda functions integral to the posting order
+saga. These functions are tasked with creating shipments and invoices, as well as updating the
+status of sales orders.
+
+\subsubsection{Functions}
+In the table \ref{tab:5_whse_financial_functions} are summarized all the lambda functions of the Warehouse
+and Financial microservice, with the relative description and the trigger event (type and name).
+
+\begin{table}
+    \centering
+    \begin{tabular}{|l|c|l|m{6cm}|}
+        \hline
+        \textbf{Name} & \textbf{Type} & \textbf{Event Name} & \textbf{Description}                                                 \\ \hline
+        ShipmentList  & API           & /shipmentlist       & represents the list page of shipment model                           \\ \hline
+        ShipmentCard  & API           & /shipmentcard       & represents the detailed page of shipment model                       \\ \hline
+        PostShipment  & SNS           & OnPostShipment      & the function that create shipment and recall the change order status \\ \hline
+        InvoiceList   & API           & /invoicelist        & represents the list page of invoice model                            \\ \hline
+        InvoiceCard   & API           & /invoicecard        & represents the detailed page of invoice model                        \\ \hline
+        PostInvoice   & SNS           & OnPostInvoice       & the function that create invoice and recall the change order status  \\ \hline
+    \end{tabular}
+    \caption{Functions of Whse. and Financial microservices.}
+    \label{tab:5_whse_financial_functions}
+\end{table}
+
+\subsection{Posting Order Saga}
 % SAGA orchestrated - gaurda il blocco appunti
+The posting order saga is implemented through a lambda function, which is
+triggered by an HTTP API by the client. The Lambda function is responsible for starting the saga, which is composed
+by a chain of lambda functions, each one triggered by an SNS event. The saga is composed by the following lambda
+functions: 'ValidateOrder', 'ReserveCredit', 'AllocateInventory', 'CreateInvoice', 'CreateShipment', 'UpdateOrderStatus'.
+The saga is orchestrated by the lambda function 'PostingOrder', which is triggered by an HTTP API by the client.
+
 
 \section{Client Application}
 Client Application: The client application is hosted on GitHub Pages and is integrated with a CI/CD
