@@ -65,68 +65,313 @@ Functional requirements describe what the system should do in terms of its funct
 features, and capabilities. They define the specific tasks that the software application should be
 able to perform to meet the needs of its users. For distinguish one requirement from another it is
 important to assign for each functionality an ID, in order to easy identify it and trace throughout
-the life cycle of the project (Table x).
+the life cycle of the project (Table \ref{tab:functional_requirements}).
 
-% da inserire tabella
-% Purchasing management: The system must be able to manage the entire purchasing process, from purchase requests to inventory management to actual purchase of products or services.
-% Production management: The system must be able to manage the production process, including planning, scheduling, and control of production, as well as management of work orders.
-% Logistics management: The system must be able to manage logistics, including storage, transportation, delivery, and tracking of goods.
-% Sales management: The system must be able to manage the entire sales process, from quotes to inventory management to billing and post-sales support.
-% Human resources management: The system must be able to manage HR processes, such as personnel management, training, performance, and human resources planning.
-% Financial management: The system must be able to manage financial processes, including accounting, billing, budget management, bank activity management, and tax management.
-% Project management: The system must be able to manage projects, from planning activities to resource management, to execution and control phases.
+\begin{table}
+    \centering
+    \begin{tabular}{|l|p{10cm}|}
+        \hline
+        ID     & Description                                           \\ \hline
+        FR1    & Sign-up users by email and password                   \\ \hline
+        FR2    & Login users by email and password                     \\ \hline
+        FR3    & Logout users                                          \\ \hline
+        FR4    & Activate notifications                                \\ \hline
+        FR5    & Deactivate notifications                              \\ \hline
+        FR6    & View chart for andamento mensile degli ordini         \\ \hline
+        FR7    & View chart for distribuzione degli ordini per cliente \\ \hline
+        FR8    & Customize the menu bar                                \\ \hline
+        FR9    & View the log of the platform events                   \\ \hline
+        FR9.1  & View the detailed log of an event                     \\ \hline
+        FR9.2  & Delete a log event                                    \\ \hline
+        FR10   & View the customers list                               \\ \hline
+        FR10.1 & View the detailed customer                            \\ \hline
+        FR10.2 & Insert a customer                                     \\ \hline
+        FR10.3 & Update a customer                                     \\ \hline
+        FR10.4 & Delete a customer                                     \\ \hline
+        FR11   & View the sales order list                             \\ \hline
+        FR11.1 & View the detailed sales order with sales lines        \\ \hline
+        FR11.2 & Insert a sales order                                  \\ \hline
+        FR11.3 & Update a sales order                                  \\ \hline
+        FR11.4 & Delete a sales order                                  \\ \hline
+        FR11.5 & Insert a sales order line                             \\ \hline
+        FR11.6 & Update a sales order line                             \\ \hline
+        FR11.7 & Delete a sales order line                             \\ \hline
+        FR12   & Launch the posting order event                        \\ \hline
+        FR13   & show notifications of change status on order          \\ \hline
+        FR14   & View the shipment list                                \\ \hline
+        FR14.1 & View the detailed shipment with sales lines           \\ \hline
+        FR14.2 & Delete a shipment                                     \\ \hline
+        FR15   & View the invoice list                                 \\ \hline
+        FR15.1 & View the detailed invoice with sales lines            \\ \hline
+        FR15.2 & Delete an invoice                                     \\ \hline
+    \end{tabular}
+    \caption{Functional requirements for the platform.}
+    \label{tab:functional_requirements}
+\end{table}
 
 \subsubsection{Non-functional requirements}
-Non-functional requirements describe how the system should perform in terms of its performance,
-reliability, security, usability, and other aspects that are not directly related to the specific
-functionalities to be implemented. They refer to operating methods and constraints, such as response
-times, supported platforms, choice of languages, required resources, tools and various
-implementation techniques. They must be measurable and may be more critical than functional
-requirements. They are identified with a unique code and it is also necessary to specify their type
-associated to the ISO properties and which functional requirements they refer to (Table x).
+Non-functional requirements describe how the system should perform in terms of its functionality,
+reliability, usability, efficiency, maintainability, security, compatibility, and portability, all
+aspects that are not directly related to the specific functionalities to be implemented. They refer
+to operating methods and constraints, such as response times, supported platforms, choice of
+languages, required resources, tools and various implementation techniques. They must be measurable
+and may be more critical than functional requirements. They are identified with a unique code and it
+is also necessary to specify their type associated to the ISO properties and which functional
+requirements they refer to (Table \ref{tab:non_functional_requirements}).
 
-% quello che sta scritto qui non c'entra nulla vedi sotto
-% \begin{table}
-%     \centering
-%     \begin{tabular}{p{2cm} | p{2.5cm} | p{4.5cm} | p{2.5cm}}
-%         \hline\hline
-%         ID         & Type & Description                                        & Refers to \\
-%         \hline
-%         Pages      & 3K   & 1 Page = 2 function request 1 to read - 1 to write & 6K        \\
-%         Report     & 150  & 1 Report = 1 function req.                         & 150       \\
-%         WebService & 76K  & 1 WS = 1 function req.                             & 76K       \\
-%         \hline \hline
-%     \end{tabular}
-%     \caption{Example of ERP usage}\label{table_ERP_vendor}
-% \end{table}
-% da inserire tabella
-% Scalability: The system should be able to handle a high volume of transactions and data, as it must be able to support all of the organization's functionalities.
-% Reliability: The system should be highly reliable, as it must always be available for user access and use.
-% Security: The system should be highly secure, as it manages sensitive business data, financial information, and personnel information.
-% Usability: The system should be easy to use and intuitive for users, as ERP system users may have varying levels of computer proficiency.
-% Performance: The system should be able to process and provide information in real-time, as business data must always be up-to-date.
-% Maintainability: The system should be easily maintainable and modifiable, as business needs may change and require the addition of new functionalities.
-% Interoperability: The system should be compatible with other software systems and technologies used by the organization, as the ERP system must be integrated with other business applications.
-
+\begin{table}
+    \centering
+    \begin{tabular}{|l|c|p{9cm}|}
+        \hline
+        ID   & Type            & Description                                                        \\ \hline
+        NFR1 & Usabilty        & Application should be used with no training by any user            \\ \hline
+        NFR2 & Efficiency      & All functions should complete in < 0.5 sec                         \\ \hline
+        NFR2 & Efficiency      & All functions must optimize the resource utilization               \\ \hline
+        NFR3 & Portability     & System must work on Chrome, Firefox, Safari, Edge, Android and iOS \\ \hline
+        NFR4 & Portability     & No installation is needed                                          \\ \hline
+        NFR5 & Compatibility   & Platform must be compatible with Azure and AWS cloud               \\ \hline
+        NFR6 & Security        & All data must be stored in a secure database                       \\ \hline
+        NFR7 & Maintainability & All functionalities must be tested indipendently                   \\ \hline
+        NFR8 & Reliabilty      & Downtime allowed is of one hour per year                           \\ \hline
+    \end{tabular}
+    \caption{Non-functional requirements for the platform.}
+    \label{tab:non_functional_requirements}
+\end{table}
 
 \section{Server application}
-\subsection{Final Architecture}
-% immagine architettura finale con l'integrazione dei servizi Amazon
-\subsection{Database}
-% un database SQL per ogni microservizio
-% quali sono le tabelle
+In this section, we will discuss the final architecture designed for the Kube platform, encompassing
+its data structures and services. We will explore the database setup, highlighting the tables
+crafted for each microservice. Following this, we'll shed light on the REST APIs tailored for every
+microservice, along with the integration of queues and events designed for asynchronous event
+management. Concluding our discussion, we'll outline a SAGA implementation that has been
+incorporated into the platform.
+\newpage
 
-\section{Use Case}
-\subsection{REST APIs}
-\subsubsection{Security}
-\subsubsection{User APIs}
-\subsubsection{Customer APIs}
-\subsubsection{Order APIs}
-\subsubsection{Warehouse APIs}
-\subsection{Async task}
-\subsubsection{Posting order}
-% Posting shipment
-% Posting invoice
+\subsection{Final Architecture}
+% TODO Aumenta i font e metti le frecce su events
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.35]{Pictures/5_architecture.png}
+    \caption{Final architecture of the platform.}
+    \label{fig:5_architecture}
+\end{figure}
+The architecture diagram in Figure \ref{fig:5_architecture} showcases a modern, serverless
+microservices-based architecture for the Kube system. Here's a description based on the elements and
+their interconnections:
+
+\begin{itemize}
+    \item \textbf{User Authentication}: the service which is responsible for user authentication is
+          'Cognito'. It is the entry point for security, ensuring that only authenticated users can
+          interact with the platform and with all the API.
+
+    \item \textbf{Firebase Cloud Messaging}: At the bottom of the diagram, we can see 'Firebase Cloud Messaging',
+          it is an integration with a cloud solution for sending notifications to devices, allowing for
+          real-time user engagement.
+
+    \item \textbf{API Gateway}: The 'API Gateway' is the central hub through which all client
+          requests pass. It acts as a front door, directing incoming requests from various devices (such as
+          computers and mobile phones) to the appropriate microservices.
+
+    \item \textbf{Microservices Architecture}: Actually each microservice is deployed to AWS (Amazon
+          Web Services), and utilize various AWS serverless features for optimizing performance.
+
+          \begin{itemize}
+              \item \textbf{Utility Microservice}: This service handles log functions and events,
+                    and is backed by a 'Utility Database' for storing log records. It also manage
+                    home page graph function and data and navigations/menu API and data.
+              \item \textbf{Sales Microservice}: Dedicated to handling sales-related operations,
+                    like handle customer and sales order, this service interacts with a 'Sales
+                    Database'.
+              \item \textbf{Whse Microservice}: this service manages shipment and warehouse-related
+                    data, backed by its own 'Whse Database'.
+              \item \textbf{Financial Microservice}: This handles financial transactions and invoice, with a
+                    separate 'Financial Database' for storing related records.
+          \end{itemize}
+
+    \item \textbf{Database Pattern}: The architecture uses a database-per-microservice pattern with SQL
+          databases, ensuring that each service has its own datastore, thus maintaining database isolation and
+          decoupling services.
+
+    \item \textbf{Event-Driven Architecture}: all microservices are connected through an
+          event-driven architecture, which allows them to communicate asynchronously and facilitates
+          loose coupling. This architecture is implemented using Amazon Simple Queue Service (SQS)
+          and Amazon Simple Notification Service (SNS), which are managed message queues and
+          notification services.
+\end{itemize}
+
+All services are managed and deployed using the serverless framework, which allows to easily
+integrate a CI/CD pipeline manage the entire infrastructure as code. With this setup, the platform
+can be easily deployed to other cloud providers and add other cloud services and features. How we
+can see, the Kube platform's architecture is designed to be scalable, flexible, and maintainable,
+with a focus on modern cloud-native principles and best practices for microservices development.
+
+\subsubsection{Microservices components}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.3]{Pictures/5_microservizio.png}
+    \caption{Microservices components.}
+    \label{fig:5_microservices}
+\end{figure}
+
+Each microservice in the Kube platform is a composite of four essential components that work in
+concert to deliver its specific functionality:
+
+\begin{table}
+    \centering
+    \begin{tabular}{|c|c|m{8.5cm}|}
+        \hline
+        \textbf{Component}   & \textbf{Service} & \textbf{Description}                                                                                                                                                                                                                                                                                                                                                                                                \\ \hline
+        \textbf{Data Models} & RDS              & At the core of each microservice is a set of data models. These models define the structure of the data that the microservice handles, ensuring data integrity and consistency. By having its own models, each microservice encapsulates the necessary information to perform its tasks, leading to a clear delineation of responsibilities within the system.                                                      \\ \hline
+        \textbf{REST APIs}   & API Gateway      & The REST APIs serve as the interfaces through which external services or client applications interact with the microservices. These APIs are carefully designed to provide a clear and consistent contract for accessing and manipulating data. They follow REST principles, allowing for stateless communication and enabling clients to perform standard HTTP operations such as GET, POST, PATCH, and DELETE.    \\ \hline
+        \textbf{Functions}   & Lambda           & The functions are the operational units within each microservice, containing the business logic that processes requests, manipulates data models, and performs the necessary computations. These functions are likely implemented as serverless functions, which are executed in response to events, scaling automatically with the number of requests and reducing the need for managing server infrastructure.    \\ \hline
+        \textbf{Events}      & SNS, SQS         & Each microservice also incorporates an event-driven mechanism, signaling and reacting to various conditions and triggers. These events facilitate asynchronous communication between microservices, thereby enhancing the platform's responsiveness and efficiency. By decoupling microservices through events, the system can better handle load variations and failure modes, contributing to overall resilience. \\ \hline
+    \end{tabular}
+    \caption{Microservices components.}
+    \label{tab:microservices_components}
+\end{table}
+
+Together, these components create a modular and cohesive microservice that is self-contained,
+scalable, and robust. The data models ensure that each service can independently manage its segment
+of the data. The REST APIs provide the necessary endpoints for interaction, while the functions
+encapsulate the business logic. Finally, the event system allows the services to react to and
+communicate changes across the platform without direct coupling, promoting a reactive architecture
+that can quickly adapt to changing conditions.
+% eventually consistent is enough because not critical data and not all system is coupled
+
+\subsection{Code Structure}
+In our microservices architecture, all lambda functions are written in the Go language. This
+decision was influenced by several key factors. Firstly, Go is a compiled language, which leads to
+significantly faster execution times and results in smaller executable files. Another important
+reason for choosing Go is the availability of the Go CDK library. This library is unique to Go and
+aids in making functions as portable as possible across different cloud providers. While it's true
+that shifting functions between providers requires some manual adjustments, the process could be
+streamlined by developing CLI tools for automation.
+\newline\newline
+However, adopting Go was not without its challenges. Unlike object-oriented languages, Go doesn't
+fully integrate all object-oriented principles. It has its own way of handling certain programming
+concepts, which required a learning curve. Additionally, Go is not as versatile in some aspects; for
+instance, the main function is bound to have a dedicated 'main' package. This can pose difficulties
+in managing multiple functions, each with its own 'main,' making the overall management a complex
+task.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.3]{Pictures/5_stack_framework.png}
+    \caption{Stack abstractions layer.}
+    \label{fig:5_stack_framework}
+\end{figure}
+
+In every function architecture, I've implemented an abstraction layer specifically designed for
+managing REST APIs of various resources. This unified approach, applied across all microservices, is
+facilitated by a layer we've named 'thesis.' Built on top of the GORM and Go CDK libraries, this
+layer simplifies and accelerates API management. Connecting a GORM model to a 'thesis' layer
+structure called 'page' requires minimal coding. The 'page' concept is central to our approach: it
+automatically generates a suite of REST APIs for a resource, significantly reducing development time
+and standardizing structures across resources. Moreover, these 'pages' can define a UI schema, which
+clients can use to dynamically build pages for resources in their applications. The APIs that are
+automatically constructed from a GORM model are structured as indicated inside the following tables.
+
+\subsubsection{http://api.example.com/:pageid?field=value}
+\begin{table}
+    \centering
+    \begin{tabular}{|m{2cm}|m{10cm}|}
+        \hline
+        \textbf{Method} & \textbf{Description}                                                                                                        \\ \hline
+        \textbf{GET}    &
+        Returns the list of records linked to the page. The records can be filtered by inserting the fields to be filtered in the URL's query string. \\ \hline
+        \textbf{POST}   &
+        Creates a new record in the table linked to the page.                                                                                         \\ \hline
+        \textbf{PATCH}  &
+        Edits the record in the table linked to the page.                                                                                             \\ \hline
+        \textbf{DELETE} &
+        Deletes records linked to the page. The records can be filtered by inserting the fields to be filtered in the URL's query string.             \\ \hline
+    \end{tabular}
+    \caption{REST API for page.}
+    \label{tab:api_rest_1}
+\end{table}
+
+\subsubsection{http://api.example.com/:pageid/schema}
+\begin{table}
+    \centering
+    \begin{tabular}{|m{2cm}|m{10cm}|}
+        \hline
+        \textbf{Method} & \textbf{Description}                     \\ \hline
+        \textbf{GET}    &
+        Returns the UI schema for building the page in the client. \\ \hline
+        \textbf{POST}   &
+        Not allowed.                                               \\ \hline
+        \textbf{PATCH}  &
+        Not allowed.                                               \\ \hline
+        \textbf{DELETE} &
+        Not allowed.                                               \\ \hline
+    \end{tabular}
+    \caption{Methods for page schema.}
+    \label{tab:api_rest_2}
+\end{table}
+
+\subsubsection{http://api.example.com/:pageid/button?button\_id=value}
+\begin{table}
+    \centering
+    \begin{tabular}{|m{2cm}|m{10cm}|}
+        \hline
+        \textbf{Method} & \textbf{Description}                                   \\ \hline
+        \textbf{GET}    &
+        Initiates the functionality linked to the button and returns the result. \\ \hline
+        \textbf{POST}   &
+        Not allowed.                                                             \\ \hline
+        \textbf{PATCH}  &
+        Not allowed.                                                             \\ \hline
+        \textbf{DELETE} &
+        Not allowed.                                                             \\ \hline
+    \end{tabular}
+    \caption{Methods for page buttons.}
+    \label{tab:api_rest_3}
+\end{table}
+
+\subsection{Utility Microservice}
+% ora entreremo nel dettaglio di ogni microservizio
+% spiega come hai strutturato il database per microservizio
+% spiega il sistema di notification management
+% spiega il sistema di logging
+% esso serve a...
+\subsubsection{Database}
+\subsubsection{API REST}
+\subsubsection{Events}
+% API REST Create, code SQS create, SNS create, tabelle create
+\subsection{Sales Microservice}
+\subsection{Whse Microservice}
+\subsection{Financial Microservice}
+
+\subsection{Posting Order Event}
+% SAGA orchestrated - gaurda il blocco appunti
 
 \section{Client Application}
-\subsection{User Interface}
+Client Application: The client application is hosted on GitHub Pages and is integrated with a CI/CD
+pipeline using GitHub Actions. This setup automates the deployment process, where any commits pushed
+to the repository trigger a build and deployment sequence, ensuring that the latest version of the
+web application is always available.
+
+\subsection{Navigation}
+\subsection{State Management}
+\subsection{Page Builder}
+
+% routing/navigation
+% Notification FCM
+% authentication
+% state management
+% page management
+% \subsection{User Interface}
+
+\section{Use Case}
+A use case comprises various scenarios connected by a shared user objective, serving to illustrate
+how a system behaves under different circumstances when processing a request. Each use case should
+specify the system as an opaque entity, the user type (often referred to as the actor) interacting
+with the system, and the actor's functional objective achieved through the system. A single scenario
+represents a series of steps outlining the interaction between a user and the system. Additionally,
+each scenario requires a pre-condition that must be met before initiation and a post-condition
+fulfilled upon completion. This section will present several use cases, demonstrating the range of
+operations a user can execute on the platform.
+
+\subsection{CRUD operations}
+\subsection{Posting order}
+
