@@ -381,7 +381,7 @@ microservice, with the relative description and the trigger event (type and name
     \label{tab:5_utility_functions}
 \end{table}
 
-% aggiungere le tabelle?
+% TODO aggiungere le tabelle?
 
 \subsection{Sales Microservice}
 This microservice is specifically designed to handle and manage customer and sales order data. It
@@ -441,13 +441,42 @@ and Financial microservice, with the relative description and the trigger event 
 \end{table}
 
 \subsection{Posting Order Saga}
-% SAGA orchestrated - gaurda il blocco appunti
-The posting order saga is implemented through a lambda function, which is
-triggered by an HTTP API by the client. The Lambda function is responsible for starting the saga, which is composed
-by a chain of lambda functions, each one triggered by an SNS event. The saga is composed by the following lambda
-functions: 'ValidateOrder', 'ReserveCredit', 'AllocateInventory', 'CreateInvoice', 'CreateShipment', 'UpdateOrderStatus'.
-The saga is orchestrated by the lambda function 'PostingOrder', which is triggered by an HTTP API by the client.
+The posting order saga, designed for users to post sales orders, operates through a series of
+orchestrated lambda functions. At its core is the 'ChangeOrderStatus' function from the sales
+microservice, which manages the sequence of steps in the saga. This function is triggered by an SQS
+queue, which initially receives data when a user clicks the 'Post Order' button via the
+'SalesOrderCard' function. Once activated, the 'ChangeOrderStatus' function begins the saga, leading
+to a sequence of lambda functions, each set off by an SNS event. Key functions in this saga include
+'CreateShipment' from the warehouse microservice and 'CreateInvoice' from the financial
+microservice. This well-organized method ensures a seamless and efficient process for posting
+orders.
+\newpage
 
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.6]{Pictures/5_saga.png}
+    \caption{Sequence diagram of the posting order saga.}
+    \label{fig:5_posting_order_saga}
+\end{figure}
+
+The figure \ref{fig:5_posting_order_saga} shows the sequence diagram of the posting order saga.
+Here's a detailed description of the steps involved:
+\begin{enumerate}
+    \item User initiates the process by clicking the "Post Order" button, which triggers an API
+          event which is processed by the SalesOrderCard function.
+    \item The SalesOrderCard places a message in an SQS queue, the ChangeOrderStatusQueue. It is a
+          FIFO queue, ensuring that messages are delivered to the recipient in the same order they were
+          received by the queue.
+    \item ChangeOrderStatus make the check of posting order, change the status of order in "Pending
+          Shipment" and triggers an SNS event on topic OnPostShipment.
+    \item The SNS event invokes the PostShipment function. It create the shipment and send an SQS
+          message on ChangeOrderStatusQueue.
+    \item ChangeOrderStatus change the status of order in "Shipped" and triggers an SNS event on topic OnPostInvoice.
+    \item The SNS event invokes the PostInvoice function. It create the Invoice and send an SQS
+          message on ChangeOrderStatusQueue.
+    \item Upon successful invoice creation, the status of order is changed in "Invoiced" and a final
+          Firebase (FCM) event is triggered, sending a notification to the user client.
+\end{enumerate}
 
 \section{Client Application}
 Client Application: The client application is hosted on GitHub Pages and is integrated with a CI/CD
