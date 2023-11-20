@@ -148,10 +148,9 @@ incorporated into the platform.
 \newpage
 
 \subsection{Final Architecture}
-% TODO Aumenta i font e metti le frecce su events
 \begin{figure}
     \centering
-    \includegraphics[scale=0.35]{Pictures/5_architecture.png}
+    \includegraphics[scale=0.35]{Pictures/5_architecture2.png}
     \caption{Final architecture of the platform.}
     \label{fig:5_architecture}
 \end{figure}
@@ -487,22 +486,26 @@ pivotal role in its functionality and are described in the following sections. T
 elements include a secure authentication system featuring a Cognito login page, an efficient state
 management setup utilizing the Provider package, a dynamic routing mechanism powered by the GoRouter
 package, a custom-made page builder tailored to specific needs, and a reliable notification system
-implemented through Firebase Cloud Messaging.
+implemented through Firebase Cloud Messaging, Figure \ref{fig:5_client_application}.
 
-% TODO immagine componenti a blocchi
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.45]{Pictures/5_client.png}
+    \caption{Client application architecture.}
+    \label{fig:5_client_application}
+\end{figure}
 
 From an UI point of view, the application is designed to be simple and intuitive, with a clean and
 modern look. Visually it is mainly composed of a menu bar and a page area, where the content of the
-selected page is displayed. The Figure \ref{fig:5_client_application} shows what the application
+selected page is displayed. The Figure \ref{fig:5_client_UI} shows what the application
 looks like.
 
-% TODO immagine dell'applicazione
-% \begin{figure}
-%     \centering
-%     \includegraphics[scale=0.3]{Pictures/5_saga.png}%5_client_application.png}
-%     \caption{Client application.}
-%     \label{fig:5_client_application}
-% \end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.35]{Pictures/5_client_ui.png}
+    \caption{Client UI.}
+    \label{fig:5_client_UI}
+\end{figure}
 
 To enhance its effectiveness, the client application is hosted on GitHub Pages and is seamlessly
 woven into a CI/CD pipeline orchestrated via GitHub Actions. This strategic implementation ensures a
@@ -589,18 +592,27 @@ The Page Widget in our application is a custom-built, dynamic component that cre
 to a JSON schema fetched from the page API. Its design is intentionally flexible, allowing for the
 construction of a variety of page types. The widget uses a switch statement to decide the type of
 page to construct, based on the 'page type' defined in the schema. Currently, it supports three
-types of pages: list, card, and home. Here's how the page builder workflow operates:
+types of pages: list, card, and home. The Figure \ref{fig:5_page_builder} is how the page builder
+workflow operates:
 
-% TODO aggiungere immagine del page builder flow
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.47]{Pictures/5_page_builder.png}
+    \caption{Page builder workflow.}
+    \label{fig:5_page_builder}
+\end{figure}
 
 \begin{enumerate}
+    \item The User clicks on a menu bar button, triggering a change in the navigation state.
+    \item The menu bar call the routing system to change the page with the pageId of the selected
+          button.
     \item The Page Widget is initiated with a specific 'pageId' parameter.
     \item It then calls the page API to obtain layout information using the endpoint
           '/:pageId/schema'. This schema, a JSON format, outlines the structure of the page.
     \item Based on this layout information, the widget builds the page. There are three distinct
-          page types it can construct: list, card, and home.
-    \item For each page type, a specialized widget is employed to build the page: PageList for
-          lists, PageCard for cards, and PageHome for the home page.
+          page types it can construct: list, card, and home. For each page type, a specialized
+          widget is employed to build the page: PageList for lists, PageCard for cards, and PageHome
+          for the home page.
     \item These widgets then call their respective APIs, using '/:pageId' endpoint, to fetch the
           data needed for display. For the PageCard, a key filter is applied to retrieve specific records.
     \item After receiving the data from the API, each widget finish to constructs the page,
@@ -620,8 +632,6 @@ to receive notifications effortlessly. Each notification is displayed as a snack
 the screen, effectively informing users about important events on the platform, such as status
 updates on orders or the creation of new shipments. This feature enhances user engagement by keeping
 them promptly informed.
-
-% immagine di uno snackbar?
 
 \section{Use Case}
 A use case comprises various scenarios connected by a shared user objective, serving to illustrate
