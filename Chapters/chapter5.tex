@@ -479,21 +479,150 @@ Here's a detailed description of the steps involved:
 \end{enumerate}
 
 \section{Client Application}
-Client Application: The client application is hosted on GitHub Pages and is integrated with a CI/CD
-pipeline using GitHub Actions. This setup automates the deployment process, where any commits pushed
-to the repository trigger a build and deployment sequence, ensuring that the latest version of the
-web application is always available.
+The Kube application client, a multifaceted and versatile platform, is constructed using Flutter, a
+well-known cross-platform framework. This comprehensive solution seamlessly supplies a wide array of
+platforms including Android, iOS, and Web, while also extending support to desktop environments like
+Windows, MacOS, and Linux, albeit with a current limitation in notification capabilities. At its
+core, the application smoothly integrates various robust systems and components, each playing a
+pivotal role in its functionality and are described in the following sections. These integral
+elements include a secure authentication system featuring a Cognito login page, an efficient state
+management setup utilizing the Provider package, a dynamic routing mechanism powered by the GoRouter
+package, a custom-made page builder tailored to specific needs, and a reliable notification system
+implemented through Firebase Cloud Messaging.
 
-\subsection{Navigation}
+% TODO immagine componenti a blocchi
+
+From an UI point of view, the application is designed to be simple and intuitive, with a clean and
+modern look. Visually it is mainly composed of a menu bar and a page area, where the content of the
+selected page is displayed. The Figure \ref{fig:5_client_application} shows what the application
+looks like.
+
+% TODO immagine dell'applicazione
+% \begin{figure}
+%     \centering
+%     \includegraphics[scale=0.3]{Pictures/5_saga.png}%5_client_application.png}
+%     \caption{Client application.}
+%     \label{fig:5_client_application}
+% \end{figure}
+
+To enhance its effectiveness, the client application is hosted on GitHub Pages and is seamlessly
+woven into a CI/CD pipeline orchestrated via GitHub Actions. This strategic implementation ensures a
+streamlined deployment process: each commit to the repository triggers an automated build and
+deployment sequence. This diligent approach guarantees that the latest iteration of the web
+application is consistently accessible, embodying the epitome of efficiency and continuous
+integration.
+
 \subsection{State Management}
-\subsection{Page Builder}
+State management in the Flutter framework refers to the process of handling the data and UI states
+of an app effectively. In Flutter, "state" can be anything that affects the UI and needs to be
+tracked, such as user inputs, server responses, or even a timer's progress. Proper state management
+ensures that the UI reflects the current state of the app accurately and efficiently, without
+unnecessary rebuilds or updates. For the Kube application, the state is managed by the Provider
+package. it is a popular library and it give an efficient way to manage state. It works by using a
+mix of dependency injection and state management, allowing widgets to subscribe to changes in the
+state of the app. Provider simplifies the process of passing data and events down the widget tree.
+This approach not only makes the code more maintainable and scalable but also optimizes the app's
+performance by rebuilding only those widgets that need to be updated. The figure
+\ref{fig:5_provider} shows how the Provider package works.
 
-% routing/navigation
-% Notification FCM
-% authentication
-% state management
-% page management
-% \subsection{User Interface}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{Pictures/5_provider.png}
+    \caption{Provider package.}
+    \label{fig:5_provider}
+\end{figure}
+
+In this project, the Provider system is utilized for managing various states within the application.
+It handles the user's authentication state, controls the navigation state of the menu bar, and
+manages the notification state of the application, and finally it is used for handling the
+controller page between several widgets on a single page.
+
+\subsection{Authentication System}
+The authentication system is a crucial component of the Kube application, ensuring that only
+authenticated users can access the platform. This system is implemented using Amazon Cognito, a
+comprehensive authentication service that provides secure user sign-up and sign-in functionality.
+Cognito is a fully managed service, which means that it handles all the authentication processes,
+including user registration, authentication, and account recovery.
+\newline\newline
+In this platform, the sign-up process is exclusively handled by the administrator, meaning that
+users are unable to register themselves. Instead, users can only sign in using credentials provided
+by the administrator. The authentication is facilitated through a Cognito login page, which is
+accessible via the app's login page status - serving as the application's entry point. This process
+is illustrated in Figure \ref{fig:5_auth}. Once authenticated, users gain access to the menu bar and
+the various pages of the application, thereby unlocking the routing system which was previously
+restricted.
+
+% TODO fig:5_auth -> login state page -> cognito page -> menu bar unlocked -> interaction with page
+
+\subsection{Routing System}
+Kube application's routing system, an important aspect for page navigation, is powered by the
+GoRouter package. This dynamic routing tool is both user-friendly and highly adaptable, supporting
+custom routes and parameterized paths. Integrated state management ensures navigation state updates
+in response to route changes, allowing the app to respond dynamically. The app features three
+primary routes: login, home, and page, as shown in Table \ref{tab:5_routes}.
+
+\begin{table}
+    \centering
+    \begin{tabular}{|l|l|m{7cm}|}
+        \hline
+        \textbf{Route} & \textbf{Page} & \textbf{Description}                                                                                      \\ \hline
+        /login         & LoginStatus   & go to the page where are shown login information and login and logout buttons                             \\ \hline
+        /home          & Home          & call the home API to retrieve page home information e show it                                             \\ \hline
+        /page/:pageId  & Page Selected & open the page indicated in pageId parameter. Call the page API related and build the page based on schema \\ \hline
+    \end{tabular}
+    \caption{Routes and pages.}
+    \label{tab:5_routes}
+\end{table}
+
+These routes are established in the main.dart file, the application's starting point. Positioned
+under the navigation menu bar, which remains constantly visible, all routes are constructed
+accordingly. Post-login, the first constructed widget is the menu bar, set up by querying the
+navigation list API. This API, a GET request to the navigationlist function in the utility
+microservice, retrieves a list of all pages to be displayed in the menu bar, with the relative icon,
+caption and url. When a user interacts with the menu bar by clicking on its buttons, it initiates a
+change in the application's navigation state. This action prompts the menu bar to be reconstructed.
+In the menu, each button corresponds to a different page within the application. Therefore,
+selecting a button results in a change to the respective page route, which in turn triggers the
+refreshing of that page.
+
+\subsection{Page Builder}
+The Page Widget in our application is a custom-built, dynamic component that creates pages according
+to a JSON schema fetched from the page API. Its design is intentionally flexible, allowing for the
+construction of a variety of page types. The widget uses a switch statement to decide the type of
+page to construct, based on the 'page type' defined in the schema. Currently, it supports three
+types of pages: list, card, and home. Here's how the page builder workflow operates:
+
+% TODO aggiungere immagine del page builder flow
+
+\begin{enumerate}
+    \item The Page Widget is initiated with a specific 'pageId' parameter.
+    \item It then calls the page API to obtain layout information using the endpoint
+          '/:pageId/schema'. This schema, a JSON format, outlines the structure of the page.
+    \item Based on this layout information, the widget builds the page. There are three distinct
+          page types it can construct: list, card, and home.
+    \item For each page type, a specialized widget is employed to build the page: PageList for
+          lists, PageCard for cards, and PageHome for the home page.
+    \item These widgets then call their respective APIs, using '/:pageId' endpoint, to fetch the
+          data needed for display. For the PageCard, a key filter is applied to retrieve specific records.
+    \item After receiving the data from the API, each widget finish to constructs the page,
+          populating it with the relevant data.
+\end{enumerate}
+
+% 3 esempi di pagine in json?
+
+\subsection{Notification System}
+In Kube platform, the notification system is implemented through Firebase Cloud Messaging (FCM), a
+robust cross-platform messaging solution that ensures the reliable delivery of messages and
+notifications to client applications. FCM, a free service, supports messaging to devices using iOS,
+Android, and Web applications, although it does not extend to desktop applications. I have
+seamlessly integrated FCM into the global state management system of our application. This
+integration simplifies accessing and managing notification states, enabling the client application
+to receive notifications effortlessly. Each notification is displayed as a snackbar at the bottom of
+the screen, effectively informing users about important events on the platform, such as status
+updates on orders or the creation of new shipments. This feature enhances user engagement by keeping
+them promptly informed.
+
+% immagine di uno snackbar?
 
 \section{Use Case}
 A use case comprises various scenarios connected by a shared user objective, serving to illustrate
@@ -505,6 +634,64 @@ each scenario requires a pre-condition that must be met before initiation and a 
 fulfilled upon completion. This section will present several use cases, demonstrating the range of
 operations a user can execute on the platform.
 
-\subsection{CRUD operations}
-\subsection{Posting order}
+\subsection{User interaction}
+This use case is applicable to all entities of the platform that have a page list, so it is a
+generic use case. In this example we will see how the user can interact with the customer list page.
+We use the insert example, but the same steps are valid for the update and delete operations. The
+table \ref{tab:5_user_interaction} shows the steps of the scenario.
 
+\begin{table}
+    \centering
+    \begin{tabular}{|l|p{10cm}|}
+        \hline
+        \textbf{Actors involved} & User                                                                              \\
+        \hline
+        \textbf{Precondition}    & The user U has already authenticated to the system and opened the customer list   \\
+        \hline
+        \textbf{Post-condition}  & The user U has created a new customer for the ERP system                          \\
+        \hline
+        \textbf{Normal scenario} &
+        \begin{enumerate}
+            \item The user U clicks on the add button
+            \item Insert valid data in the opened detailed page
+            \item Confirm the creation of the new customer
+        \end{enumerate}                                                           \\
+        \hline
+        \textbf{Variant}         & The user inserts a non-valid data and the system inform him with an error message \\
+        \hline
+    \end{tabular}
+    \caption{User interaction scenario}
+    \label{tab:5_user_interaction}
+\end{table}
+
+
+\subsection{Posting order}
+This use case show how the user can post an order. The table \ref{tab:5_posting_order} shows the
+steps of the scenario.
+
+\begin{table}
+    \centering
+    \begin{tabular}{|l|p{10cm}|}
+        \hline
+        \textbf{Actors involved} & User                                                                                   \\
+        \hline
+        \textbf{Precondition}    & The user U has already authenticated to the system and opened the sales order card     \\
+        \hline
+        \textbf{Post-condition}  & The user U has posted a sales order, and created a shipment and invoice document       \\
+        \hline
+        \textbf{Normal scenario} &
+        \begin{enumerate}
+            \item The user U clicks on the Posting button
+            \item The system check if the order is valid
+            \item The system create the shipment document
+            \item The system create the invoice document
+            \item The system change the status of the order in "INV"
+            \item The system send a notification to the user U with the result of the posting order
+        \end{enumerate}                            \\
+        \hline
+        \textbf{Variant}         & The user inserts a non-valid data and the system inform him with an error notification \\
+        \hline
+    \end{tabular}
+    \caption{User interaction scenario}
+    \label{tab:5_posting_order}
+\end{table}
