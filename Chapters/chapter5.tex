@@ -522,10 +522,7 @@ ensures that the UI reflects the current state of the app accurately and efficie
 unnecessary rebuilds or updates. For the Kube application, the state is managed by the Provider
 package. it is a popular library and it give an efficient way to manage state. It works by using a
 mix of dependency injection and state management, allowing widgets to subscribe to changes in the
-state of the app. Provider simplifies the process of passing data and events down the widget tree.
-This approach not only makes the code more maintainable and scalable but also optimizes the app's
-performance by rebuilding only those widgets that need to be updated. The figure
-\ref{fig:5_provider} shows how the Provider package works.
+state of the app.
 
 \begin{figure}
     \centering
@@ -534,6 +531,10 @@ performance by rebuilding only those widgets that need to be updated. The figure
     \label{fig:5_provider}
 \end{figure}
 
+Provider simplifies the process of passing data and events down the widget tree.
+This approach not only makes the code more maintainable and scalable but also optimizes the app's
+performance by rebuilding only those widgets that need to be updated. The figure
+\ref{fig:5_provider} shows how the Provider package works.
 In this project, the Provider system is utilized for managing various states within the application.
 It handles the user's authentication state, controls the navigation state of the menu bar, and
 manages the notification state of the application, and finally it is used for handling the
@@ -545,14 +546,9 @@ authenticated users can access the platform. This system is implemented using Am
 comprehensive authentication service that provides secure user sign-up and sign-in functionality.
 Cognito is a fully managed service, which means that it handles all the authentication processes,
 including user registration, authentication, and account recovery.
-\newline\newline
 In this platform, the sign-up process is exclusively handled by the administrator, meaning that
 users are unable to register themselves. Instead, users can only sign in using credentials provided
-by the administrator. The authentication is facilitated through a Cognito login page, which is
-accessible via the app's login page status - serving as the application's entry point. This process
-is illustrated in Figure \ref{fig:5_auth}. Once authenticated, users gain access to the menu bar and
-the various pages of the application, thereby unlocking the routing system which was previously
-restricted.
+by the administrator.
 
 \begin{figure}
     \centering
@@ -560,6 +556,12 @@ restricted.
     \caption{Authentication system.}
     \label{fig:5_auth}
 \end{figure}
+
+The authentication is facilitated through a Cognito login page, which is
+accessible via the app's login page status - serving as the application's entry point. This process
+is illustrated in Figure \ref{fig:5_auth}. Once authenticated, users gain access to the menu bar and
+the various pages of the application, thereby unlocking the routing system which was previously
+restricted.
 
 \subsection{Routing System}
 Kube application's routing system, an important aspect for page navigation, is powered by the
