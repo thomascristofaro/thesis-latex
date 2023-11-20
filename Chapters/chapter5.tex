@@ -554,7 +554,12 @@ is illustrated in Figure \ref{fig:5_auth}. Once authenticated, users gain access
 the various pages of the application, thereby unlocking the routing system which was previously
 restricted.
 
-% TODO fig:5_auth -> login state page -> cognito page -> menu bar unlocked -> interaction with page
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.33]{Pictures/5_auth.png}
+    \caption{Authentication system.}
+    \label{fig:5_auth}
+\end{figure}
 
 \subsection{Routing System}
 Kube application's routing system, an important aspect for page navigation, is powered by the
@@ -607,8 +612,8 @@ workflow operates:
     \item The menu bar call the routing system to change the page with the pageId of the selected
           button.
     \item The Page Widget is initiated with a specific 'pageId' parameter.
-    \item It then calls the page API to obtain layout information using the endpoint
-          '/:pageId/schema'. This schema, a JSON format, outlines the structure of the page.
+    \item It then calls the page API to obtain layout information using the endpoint\\
+          /:pageId/schema. This schema, a JSON format, outlines the structure of the page.
     \item Based on this layout information, the widget builds the page. There are three distinct
           page types it can construct: list, card, and home. For each page type, a specialized
           widget is employed to build the page: PageList for lists, PageCard for cards, and PageHome
@@ -661,10 +666,10 @@ table \ref{tab:5_user_interaction} shows the steps of the scenario.
         \hline
         \textbf{Normal scenario} &
         \begin{enumerate}
-            \item The user U clicks on the add button
+            \item The user U clicks on the new button
             \item Insert valid data in the opened detailed page
-            \item Confirm the creation of the new customer
-        \end{enumerate}                                                           \\
+            \item Click the button "Insert" for creating the new customer
+        \end{enumerate}                                                 \\
         \hline
         \textbf{Variant}         & The user inserts a non-valid data and the system inform him with an error message \\
         \hline
@@ -673,6 +678,21 @@ table \ref{tab:5_user_interaction} shows the steps of the scenario.
     \label{tab:5_user_interaction}
 \end{table}
 
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.4]{Pictures/5_customer1.png}
+    \caption{New button on customer list page.}
+    \label{fig:5_customer_1}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.4]{Pictures/5_customer2.png}
+    \caption{Insert Customer from detailed page.}
+    \label{fig:5_customer_2}
+\end{figure}
+
+\newpage
 
 \subsection{Posting order}
 This use case show how the user can post an order. The table \ref{tab:5_posting_order} shows the
@@ -704,3 +724,17 @@ steps of the scenario.
     \caption{User interaction scenario}
     \label{tab:5_posting_order}
 \end{table}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.4]{Pictures/5_order1.png}
+    \caption{Posting order button on sales order card.}
+    \label{fig:5_order1}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.4]{Pictures/5_order2.png}
+    \caption{Posting order result notification.}
+    \label{fig:5_order2}
+\end{figure}
