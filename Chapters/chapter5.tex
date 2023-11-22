@@ -255,15 +255,15 @@ task.
 
 \begin{figure}
     \centering
-    \includegraphics[scale=0.3]{Pictures/5_stack_framework.png}
+    \includegraphics[scale=0.3]{Pictures/5_stack_framework2.png}
     \caption{Stack abstractions layer.}
     \label{fig:5_stack_framework}
 \end{figure}
 
 In every function architecture, I've implemented an abstraction layer specifically designed for
 managing REST APIs of various resources. This unified approach, applied across all microservices, is
-facilitated by a layer we've named 'thesis.' Built on top of the GORM and Go CDK libraries, this
-layer simplifies and accelerates API management. Connecting a GORM model to a 'thesis' layer
+facilitated by a layer we've named 'kube'. Built on top of the GORM and Go CDK libraries, this
+layer simplifies and accelerates API management. Connecting a GORM model to a 'kube' layer
 structure called 'page' requires minimal coding. The 'page' concept is central to our approach: it
 automatically generates a suite of REST APIs for a resource, significantly reducing development time
 and standardizing structures across resources. Moreover, these 'pages' can define a UI schema, which
@@ -562,6 +562,8 @@ accessible via the app's login page status - serving as the application's entry 
 is illustrated in Figure \ref{fig:5_auth}. Once authenticated, users gain access to the menu bar and
 the various pages of the application, thereby unlocking the routing system which was previously
 restricted.
+
+
 
 \subsection{Routing System}
 Kube application's routing system, an important aspect for page navigation, is powered by the
